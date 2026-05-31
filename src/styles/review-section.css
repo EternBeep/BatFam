@@ -1,0 +1,331 @@
+/* ═══════════════════════════════════════════════════
+   REVIEW SECTION  —  per-character themed
+   ═══════════════════════════════════════════════════ */
+
+/* ── Default tokens (Batman) ── */
+.rv-section {
+    --rv-bg:        #0d0d0d;
+    --rv-border:    rgba(245,197,24,.13);
+    --rv-glow:      rgba(245,197,24,.04);
+    --rv-accent:    #f5c518;
+    --rv-accent-hi: #ffe566;
+    --rv-accent-dim:rgba(245,197,24,.45);
+    --rv-star-glow: rgba(245,197,24,.55);
+    --rv-text:      #e8e8e8;
+    --rv-muted:     #777;
+    --rv-input-bg:  rgba(255,255,255,.04);
+    --rv-input-fo:  rgba(255,255,255,.07);
+    --rv-btn-fg:    #0a0a0a;
+    --rv-font-h:    'Cinzel', serif;
+    --rv-font-b:    'Raleway', sans-serif;
+    --rv-font-m:    'Raleway', sans-serif;
+}
+
+/* ── Nightwing  — electric blue ── */
+.rv-section[data-character="nightwing"] {
+    --rv-bg:        #020610;
+    --rv-border:    rgba(30,144,255,.15);
+    --rv-glow:      rgba(30,144,255,.05);
+    --rv-accent:    #1e90ff;
+    --rv-accent-hi: #60c0ff;
+    --rv-accent-dim:rgba(30,144,255,.50);
+    --rv-star-glow: rgba(0,212,255,.60);
+    --rv-text:      #c8ddf0;
+    --rv-muted:     #4a6580;
+    --rv-input-bg:  rgba(30,144,255,.04);
+    --rv-input-fo:  rgba(30,144,255,.09);
+    --rv-btn-fg:    #02040c;
+    --rv-font-h:    'Orbitron', monospace;
+    --rv-font-b:    'Rajdhani', sans-serif;
+    --rv-font-m:    'Share Tech Mono', monospace;
+}
+
+/* ── Red Hood  — blood red ── */
+.rv-section[data-character="redhood"] {
+    --rv-bg:        #080000;
+    --rv-border:    rgba(204,0,0,.18);
+    --rv-glow:      rgba(204,0,0,.06);
+    --rv-accent:    #cc0000;
+    --rv-accent-hi: #ff3333;
+    --rv-accent-dim:rgba(204,0,0,.55);
+    --rv-star-glow: rgba(255,26,26,.65);
+    --rv-text:      #c8b8b8;
+    --rv-muted:     #4a3030;
+    --rv-input-bg:  rgba(204,0,0,.04);
+    --rv-input-fo:  rgba(204,0,0,.09);
+    --rv-btn-fg:    #000;
+    --rv-font-h:    'Bebas Neue', sans-serif;
+    --rv-font-b:    'Oswald', sans-serif;
+    --rv-font-m:    'Share Tech Mono', monospace;
+}
+
+/* ── Red Robin  — antique gold ── */
+.rv-section[data-character="redrobin"] {
+    --rv-bg:        #040607;
+    --rv-border:    rgba(215,177,90,.15);
+    --rv-glow:      rgba(215,177,90,.04);
+    --rv-accent:    #d7b15a;
+    --rv-accent-hi: #f0d080;
+    --rv-accent-dim:rgba(215,177,90,.50);
+    --rv-star-glow: rgba(215,177,90,.60);
+    --rv-text:      #f1ead7;
+    --rv-muted:     #8c9388;
+    --rv-input-bg:  rgba(215,177,90,.04);
+    --rv-input-fo:  rgba(215,177,90,.09);
+    --rv-btn-fg:    #040607;
+    --rv-font-h:    'Bebas Neue', sans-serif;
+    --rv-font-b:    'Oswald', sans-serif;
+    --rv-font-m:    'Share Tech Mono', monospace;
+}
+
+/* ── Damian Wayne  — jade green ── */
+.rv-section[data-character="damian"] {
+    --rv-bg:        #030507;
+    --rv-border:    rgba(29,122,50,.18);
+    --rv-glow:      rgba(29,122,50,.05);
+    --rv-accent:    #28a044;
+    --rv-accent-hi: #45c060;
+    --rv-accent-dim:rgba(29,122,50,.55);
+    --rv-star-glow: rgba(40,160,68,.65);
+    --rv-text:      #bdd4bd;
+    --rv-muted:     #6a846a;
+    --rv-input-bg:  rgba(29,122,50,.05);
+    --rv-input-fo:  rgba(29,122,50,.10);
+    --rv-btn-fg:    #030507;
+    --rv-font-h:    'Bebas Neue', sans-serif;
+    --rv-font-b:    'Oswald', sans-serif;
+    --rv-font-m:    'Share Tech Mono', monospace;
+}
+
+/* ═══════════════════════════════════════════════════
+   LAYOUT
+   ═══════════════════════════════════════════════════ */
+.rv-section {
+    background: var(--rv-bg);
+    border-top: 1px solid var(--rv-border);
+    padding: 100px 24px;
+    position: relative;
+    overflow: hidden;
+    font-family: var(--rv-font-b);
+    color: var(--rv-text);
+}
+
+.rv-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 50% 0%, var(--rv-glow) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.rv-inner {
+    max-width: 620px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+}
+
+/* ── Eyebrow ── */
+.rv-eyebrow {
+    font-size: .65rem;
+    letter-spacing: .35em;
+    color: var(--rv-accent);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    font-family: var(--rv-font-m);
+}
+
+/* ── Title ── */
+.rv-title {
+    font-family: var(--rv-font-h);
+    font-size: clamp(1.7rem, 4vw, 2.4rem);
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    color: var(--rv-text);
+    margin-bottom: 12px;
+    line-height: 1.1;
+}
+
+.rv-accent { color: var(--rv-accent); }
+
+/* ── Subtitle ── */
+.rv-subtitle {
+    color: var(--rv-muted);
+    font-size: .84rem;
+    letter-spacing: .04em;
+    margin-bottom: 50px;
+}
+
+/* ═══════════════════════════════════════════════════
+   STARS
+   ═══════════════════════════════════════════════════ */
+.rv-stars-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 32px;
+}
+
+.rv-star {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 2.6rem;
+    line-height: 1;
+    padding: 0 2px;
+    color: rgba(255,255,255,.10);
+    transition: color .12s, transform .12s, text-shadow .12s;
+}
+
+.rv-star.filled {
+    color: var(--rv-accent);
+    text-shadow: 0 0 18px var(--rv-star-glow);
+    transform: scale(1.13);
+}
+
+.rv-star-label {
+    font-size: .6rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--rv-accent);
+    margin-left: 10px;
+    white-space: nowrap;
+    font-family: var(--rv-font-m);
+}
+
+/* static stars in thank-you */
+.rv-star--static {
+    font-size: 2rem;
+    color: rgba(255,255,255,.10);
+    cursor: default;
+    display: inline-block;
+}
+.rv-star--static.filled {
+    color: var(--rv-accent);
+    text-shadow: 0 0 14px var(--rv-star-glow);
+}
+
+/* ═══════════════════════════════════════════════════
+   TEXTAREA
+   ═══════════════════════════════════════════════════ */
+.rv-textarea-wrap {
+    position: relative;
+    margin-bottom: 26px;
+}
+
+.rv-textarea {
+    width: 100%;
+    background: var(--rv-input-bg);
+    border: 1px solid var(--rv-border);
+    border-radius: 3px;
+    color: var(--rv-text);
+    font-family: var(--rv-font-b);
+    font-size: .88rem;
+    line-height: 1.7;
+    padding: 16px 18px 34px;
+    resize: vertical;
+    min-height: 130px;
+    outline: none;
+    transition: border-color .2s, background .2s;
+}
+
+.rv-textarea::placeholder { color: var(--rv-muted); }
+
+.rv-textarea:focus {
+    border-color: var(--rv-accent-dim);
+    background: var(--rv-input-fo);
+}
+
+.rv-char-count {
+    position: absolute;
+    bottom: 10px;
+    right: 13px;
+    font-size: .58rem;
+    color: var(--rv-muted);
+    letter-spacing: .08em;
+    font-family: var(--rv-font-m);
+    pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════════════
+   SUBMIT BUTTON
+   ═══════════════════════════════════════════════════ */
+.rv-submit-btn {
+    background: var(--rv-accent);
+    color: var(--rv-btn-fg);
+    border: none;
+    border-radius: 3px;
+    font-family: var(--rv-font-h);
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    padding: 14px 44px;
+    cursor: pointer;
+    transition: background .2s, transform .15s, opacity .2s;
+}
+
+.rv-submit-btn:hover:not(:disabled) {
+    background: var(--rv-accent-hi);
+    transform: translateY(-1px);
+}
+
+.rv-submit-btn:disabled { opacity: .28; cursor: not-allowed; }
+
+/* ═══════════════════════════════════════════════════
+   THANK-YOU STATE
+   ═══════════════════════════════════════════════════ */
+.rv-thanks {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    animation: rvFadeUp .4s ease;
+}
+
+.rv-thanks-stars {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 6px;
+}
+
+.rv-thanks-title {
+    font-family: var(--rv-font-h);
+    font-size: 1.9rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--rv-accent);
+}
+
+.rv-thanks-msg {
+    color: var(--rv-muted);
+    font-size: .86rem;
+    max-width: 360px;
+    line-height: 1.75;
+}
+
+.rv-reset-btn {
+    background: none;
+    border: 1px solid var(--rv-border);
+    color: var(--rv-muted);
+    font-family: var(--rv-font-m);
+    font-size: .6rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    padding: 10px 28px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-top: 6px;
+    transition: border-color .2s, color .2s;
+}
+
+.rv-reset-btn:hover {
+    border-color: var(--rv-accent);
+    color: var(--rv-accent);
+}
+
+@keyframes rvFadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0);    }
+}

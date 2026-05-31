@@ -1,0 +1,431 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@200;300;400;500;600;700&family=Share+Tech+Mono&display=swap');
+
+/* ══════════════════════════════════════════════════════════
+   RED HOOD TRANSITION — BATARANG FRACTURE
+   Color tokens match redhood-main.css exactly
+   ══════════════════════════════════════════════════════════ */
+
+.rh-transition {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    z-index: 100;
+    contain: layout style;
+}
+
+/* ── BACKGROUNDS ───────────────────────────────────────── */
+.rh-transition__bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at center, #1a0000 0%, #000 70%);
+}
+
+.rh-transition__noise {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.04;
+    mix-blend-mode: screen;
+    pointer-events: none;
+    z-index: 3;
+}
+
+.rh-transition__scanlines {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(0deg,
+            transparent,
+            transparent 2px,
+            rgba(200, 0, 0, 0.018) 2px,
+            rgba(200, 0, 0, 0.018) 4px);
+    pointer-events: none;
+    z-index: 25;
+}
+
+/* ── BLOOD DRIPS ───────────────────────────────────────── */
+.rh-transition__drips {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 220px;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.rh-drip {
+    position: absolute;
+    top: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, #8b0000, #cc0000 60%, transparent);
+    border-radius: 0 0 60% 60%;
+    transform: scaleY(0);
+    transform-origin: top;
+    opacity: 0;
+}
+
+.phase-1 .rh-drip,
+.phase-2 .rh-drip,
+.phase-3 .rh-drip {
+    animation: dripDown var(--dur) var(--delay) ease-in forwards;
+}
+
+@keyframes dripDown {
+    0% {
+        transform: scaleY(0);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: scaleY(1);
+        opacity: 0.75;
+    }
+}
+
+/* ── CENTRE STAGE ──────────────────────────────────────── */
+.rh-transition__center {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+}
+
+/* ── BATARANG WRAPPER ──────────────────────────────────── */
+.rh-batarang-wrap {
+    position: relative;
+    width: 480px;
+    height: 192px;
+    opacity: 0;
+    transform: scale(0.55) rotateX(20deg);
+    transition:
+        opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+    transform-style: preserve-3d;
+    will-change: transform, opacity;
+}
+
+/* Phase 1 — batarang glides in */
+.phase-1 .rh-batarang-wrap,
+.phase-2 .rh-batarang-wrap {
+    opacity: 1;
+    transform: scale(1) rotateX(0deg);
+}
+
+/* Phase 2 — slight shudder right before crack */
+.phase-2 .rh-batarang-wrap {
+    animation: batarangShudder 0.35s ease 0.3s;
+}
+
+@keyframes batarangShudder {
+    0% {
+        transform: scale(1) rotate(0deg);
+    }
+
+    20% {
+        transform: scale(1.02) rotate(-0.8deg);
+    }
+
+    40% {
+        transform: scale(1.02) rotate(0.6deg);
+    }
+
+    60% {
+        transform: scale(1.01) rotate(-0.4deg);
+    }
+
+    80% {
+        transform: scale(1) rotate(0.2deg);
+    }
+
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+/* Phase 3 — wings fly apart */
+.phase-3 .rh-batarang-wrap {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.15s ease 0.55s, transform 0.15s ease 0.55s;
+}
+
+/* ── GLOW RINGS ────────────────────────────────────────── */
+.rh-batarang-ring {
+    position: absolute;
+    /* center on the batarang's visual centre */
+    top: 50%;
+    left: 50%;
+    width: 340px;
+    height: 120px;
+    transform: translate(-50%, -50%);
+    border: 1px solid #cc000035;
+    border-radius: 50%;
+    animation: ringPulse 2.2s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.rh-batarang-ring--2 {
+    width: 440px;
+    height: 160px;
+    border-color: #cc000018;
+    animation-delay: 0.6s;
+}
+
+@keyframes ringPulse {
+
+    0%,
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.07);
+        opacity: 0.35;
+    }
+}
+
+/* ── BATARANG SVG ──────────────────────────────────────── */
+.rh-batarang-svg {
+    width: 100%;
+    height: 100%;
+    filter:
+        drop-shadow(0 0 18px #cc000080) drop-shadow(0 0 50px #8b000050) drop-shadow(0 4px 30px #00000080);
+    transition: filter 0.3s;
+}
+
+.phase-2 .rh-batarang-svg {
+    filter:
+        drop-shadow(0 0 28px #cc0000bb) drop-shadow(0 0 70px #8b000070) drop-shadow(0 4px 30px #00000080);
+}
+
+/* ── LEFT WING HALF ────────────────────────────────────── */
+.rh-bt-left {
+    transition:
+        transform 0.5s cubic-bezier(0.76, 0, 0.24, 1) 0.08s,
+        opacity 0.3s ease 0.2s;
+    will-change: transform, opacity;
+}
+
+/* ── RIGHT WING HALF ───────────────────────────────────── */
+.rh-bt-right {
+    transition:
+        transform 0.5s cubic-bezier(0.76, 0, 0.24, 1) 0.12s,
+        opacity 0.3s ease 0.25s;
+    will-change: transform, opacity;
+}
+
+/* Phase 2 — wings begin to split */
+.phase-2 .rh-bt-left {
+    transform: translate(-8px, -5px) rotate(-4deg);
+    filter: drop-shadow(-3px 0 10px #ff1a1a);
+}
+
+.phase-2 .rh-bt-right {
+    transform: translate(8px, 5px) rotate(4deg);
+    filter: drop-shadow(3px 0 10px #ff1a1a);
+}
+
+/* Phase 3 — FULL BREAK */
+.phase-3 .rh-bt-left {
+    transform: translate(-160px, -100px) rotate(-32deg);
+    opacity: 0;
+    filter: drop-shadow(-10px 0 24px #ff3333);
+    transition:
+        transform 0.48s cubic-bezier(0.76, 0, 0.24, 1) 0.04s,
+        opacity 0.28s ease 0.18s,
+        filter 0.28s ease;
+}
+
+.phase-3 .rh-bt-right {
+    transform: translate(160px, 100px) rotate(32deg);
+    opacity: 0;
+    filter: drop-shadow(10px 0 24px #ff3333);
+    transition:
+        transform 0.48s cubic-bezier(0.76, 0, 0.24, 1) 0.08s,
+        opacity 0.28s ease 0.22s,
+        filter 0.28s ease;
+}
+
+/* ── FRACTURE CRACK LINE ────────────────────────────────── */
+.rh-bt-crack {
+    opacity: 0;
+    transition: opacity 0.05s ease;
+}
+
+.phase-2 .rh-bt-crack {
+    animation: crackAppear 0.25s ease 0.38s forwards;
+}
+
+/* crack disappears when wings fly off */
+.phase-3 .rh-bt-crack {
+    opacity: 0;
+    transition: opacity 0.1s ease 0s;
+}
+
+@keyframes crackAppear {
+    0% {
+        opacity: 0;
+        stroke-dasharray: 200;
+        stroke-dashoffset: 200;
+    }
+
+    30% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 1;
+        stroke-dashoffset: 0;
+    }
+}
+
+/* ── CRACK SPARKS ──────────────────────────────────────── */
+.rh-bt-sparks {
+    opacity: 0;
+}
+
+.phase-2 .rh-bt-sparks {
+    animation: sparksFlash 0.4s ease 0.42s forwards;
+}
+
+@keyframes sparksFlash {
+    0% {
+        opacity: 0;
+    }
+
+    30% {
+        opacity: 1;
+    }
+
+    70% {
+        opacity: 0.6;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+/* ── CROWBAR SLASH ─────────────────────────────────────── */
+.rh-transition__crowbar {
+    position: absolute;
+    top: 50%;
+    left: -250px;
+    width: 560px;
+    height: 7px;
+    background: linear-gradient(to right,
+            transparent,
+            #2a2a2a 15%,
+            #777 30%,
+            #bbb 50%,
+            #777 70%,
+            #2a2a2a 85%,
+            transparent);
+    box-shadow: 0 0 12px #cc000040, 0 2px 20px #00000080;
+    transform: translateY(-50%) rotate(-14deg);
+    opacity: 0;
+    z-index: 15;
+    border-radius: 2px;
+}
+
+.phase-2 .rh-transition__crowbar {
+    animation: crowbarSlash 0.42s ease 0.18s forwards;
+}
+
+@keyframes crowbarSlash {
+    0% {
+        left: -250px;
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 0.9;
+    }
+
+    100% {
+        left: 110%;
+        opacity: 0;
+    }
+}
+
+/* ── CRACK FLASH ───────────────────────────────────────── */
+.rh-transition__crack-flash {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 50% at center, #cc0000 0%, #8b0000 40%, transparent 70%);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 20;
+}
+
+.phase-2 .rh-transition__crack-flash {
+    animation: crackFlash 0.2s ease 0.42s forwards;
+}
+
+@keyframes crackFlash {
+    0% {
+        opacity: 0;
+    }
+
+    40% {
+        opacity: 0.35;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+/* ── TEXT LABEL ────────────────────────────────────────── */
+.rh-transition__label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.2rem, 4vw, 2rem);
+    letter-spacing: 0.7em;
+    color: #cc0000;
+    opacity: 0;
+    text-shadow:
+        0 0 20px #cc0000,
+        0 0 60px #8b000080,
+        0 0 120px #8b000040;
+    transition: opacity 0.45s ease 0.55s;
+    text-transform: uppercase;
+}
+
+.phase-1 .rh-transition__label,
+.phase-2 .rh-transition__label {
+    opacity: 1;
+}
+
+.phase-3 .rh-transition__label {
+    opacity: 0;
+    transition: opacity 0.2s ease 0s;
+}
+
+/* ── FINAL WIPE ────────────────────────────────────────── */
+.rh-transition__wipe {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, #0d0000 0%, #000 60%);
+    transform: translateY(-100%);
+    z-index: 30;
+}
+
+.phase-3 .rh-transition__wipe {
+    transform: translateY(0);
+    transition: transform 0.55s cubic-bezier(0.76, 0, 0.24, 1) 0.12s;
+}

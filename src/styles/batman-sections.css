@@ -1,0 +1,948 @@
+/* ═══════════════════════════════════════════════════════════════
+   BATMAN NEW SECTIONS
+   Batmobile Showcase · Gotham Deep Dive · Timeline / Legacy
+   Change Guardian button · Arsenal icon overrides
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── CHANGE GUARDIAN ────────────────────────────────────────── */
+.bat-nav-back {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    background: none;
+    border: 1px solid rgba(245, 197, 24, .22);
+    padding: 7px 14px;
+    font-family: 'Raleway', sans-serif;
+    font-size: .58rem;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: rgba(245, 197, 24, .7);
+    cursor: none;
+    transition: color .3s, border-color .3s, background .3s;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.bat-nav-back:hover {
+    color: #f5c518;
+    border-color: rgba(245, 197, 24, .6);
+    background: rgba(245, 197, 24, .05);
+}
+
+/* ── ARSENAL ICON OVERRIDES ─────────────────────────────────── */
+.arsenal-icon-wrap {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 28px;
+    transition: transform .4s cubic-bezier(.2, 0, 0, 1), filter .3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(0 0 6px rgba(245, 197, 24, .18));
+}
+
+.arsenal-icon-wrap svg {
+    width: 100%;
+    height: 100%;
+}
+
+.arsenal-item:hover .arsenal-icon-wrap {
+    transform: translateY(-5px);
+    filter: drop-shadow(0 0 14px rgba(245, 197, 24, .45));
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BATMOBILE SHOWCASE
+   ═══════════════════════════════════════════════════════════════ */
+.batmobile-section {
+    padding: 120px 40px;
+    background: var(--bat-black);
+    border-top: 1px solid rgba(245, 197, 24, .06);
+    position: relative;
+    overflow: hidden;
+}
+
+.batmobile-section::before {
+    content: 'BATMOBILE';
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    font-family: 'Cinzel', serif;
+    font-size: clamp(5rem, 12vw, 10rem);
+    font-weight: 900;
+    color: rgba(245, 197, 24, .025);
+    letter-spacing: .2em;
+    pointer-events: none;
+    user-select: none;
+    white-space: nowrap;
+}
+
+.batmobile-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.batmobile-header {
+    margin-bottom: 60px;
+    max-width: 600px;
+}
+
+.batmobile-subtitle {
+    font-size: .88rem;
+    line-height: 1.8;
+    color: #555;
+    margin-top: 14px;
+    font-weight: 300;
+}
+
+.batmobile-layout {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 2px;
+    min-height: 440px;
+}
+
+/* Tabs — left column */
+.batmobile-tabs {
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid rgba(245, 197, 24, .08);
+}
+
+.batmobile-tab {
+    background: none;
+    border: none;
+    border-bottom: 1px solid rgba(245, 197, 24, .06);
+    padding: 22px 20px;
+    text-align: left;
+    cursor: none;
+    transition: background .3s;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    position: relative;
+}
+
+.batmobile-tab::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--bat-yellow);
+    transform: scaleY(0);
+    transform-origin: center;
+    transition: transform .3s ease;
+}
+
+.batmobile-tab.active::after {
+    transform: scaleY(1);
+}
+
+.batmobile-tab.active {
+    background: rgba(245, 197, 24, .04);
+}
+
+.batmobile-tab:hover:not(.active) {
+    background: rgba(245, 197, 24, .02);
+}
+
+.batmobile-tab-n {
+    font-family: 'Cinzel', serif;
+    font-size: .6rem;
+    color: rgba(245, 197, 24, .3);
+    letter-spacing: .2em;
+    transition: color .3s;
+}
+
+.batmobile-tab.active .batmobile-tab-n {
+    color: rgba(245, 197, 24, .7);
+}
+
+.batmobile-tab-name {
+    font-family: 'Cinzel', serif;
+    font-size: .9rem;
+    font-weight: 700;
+    color: #666;
+    transition: color .3s;
+}
+
+.batmobile-tab.active .batmobile-tab-name {
+    color: #ddd;
+}
+
+.batmobile-tab-era {
+    font-size: .58rem;
+    letter-spacing: .12em;
+    color: #333;
+    text-transform: uppercase;
+}
+
+/* Display panel — right */
+.batmobile-display {
+    display: flex;
+    flex-direction: column;
+    animation: batFadeIn .4s ease;
+}
+
+@keyframes batFadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Schematic canvas area */
+.batmobile-schematic {
+    position: relative;
+    border-bottom: 1px solid rgba(245, 197, 24, .07);
+    background: #060609;
+    padding: 30px 40px 20px;
+    overflow: hidden;
+}
+
+.batmobile-schematic-label {
+    font-size: .55rem;
+    letter-spacing: .3em;
+    color: rgba(245, 197, 24, .3);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    font-family: monospace;
+}
+
+.batmobile-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.batmobile-schematic-grid {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+        linear-gradient(rgba(245, 197, 24, .025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245, 197, 24, .025) 1px, transparent 1px);
+    background-size: 40px 40px;
+    mask-image: radial-gradient(ellipse at center, black 40%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 75%);
+}
+
+/* Info block */
+.batmobile-info {
+    padding: 32px 40px 36px;
+    background: var(--bat-dark);
+}
+
+.batmobile-info-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.batmobile-name {
+    font-family: 'Cinzel', serif;
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: #fff;
+}
+
+.batmobile-era {
+    font-size: .62rem;
+    letter-spacing: .2em;
+    color: rgba(245, 197, 24, .55);
+    text-transform: uppercase;
+}
+
+.batmobile-desc {
+    font-size: .88rem;
+    line-height: 1.85;
+    color: #666;
+    font-weight: 300;
+    margin-bottom: 24px;
+    max-width: 560px;
+}
+
+.batmobile-specs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.batmobile-spec-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: .75rem;
+}
+
+.spec-key {
+    text-transform: uppercase;
+    letter-spacing: .14em;
+    color: #3a3a3a;
+    font-size: .62rem;
+    min-width: 80px;
+}
+
+.spec-line {
+    flex: 1;
+    height: 1px;
+    background: rgba(255, 255, 255, .05);
+}
+
+.spec-val {
+    font-family: 'Cinzel', serif;
+    color: #aaa;
+    font-size: .78rem;
+    text-align: right;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   GOTHAM CITY DEEP DIVE
+   ═══════════════════════════════════════════════════════════════ */
+.gotham-section {
+    padding: 120px 40px;
+    background: var(--bat-dark);
+    border-top: 1px solid rgba(245, 197, 24, .06);
+    position: relative;
+    overflow: hidden;
+}
+
+.gotham-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.gotham-header {
+    margin-bottom: 60px;
+    max-width: 600px;
+}
+
+.gotham-subtitle {
+    font-size: .88rem;
+    line-height: 1.8;
+    color: #555;
+    margin-top: 14px;
+    font-weight: 300;
+}
+
+/* Map */
+.gotham-map-wrap {
+    position: relative;
+    margin-bottom: 60px;
+    border: 1px solid rgba(245, 197, 24, .1);
+    background: #050508;
+    overflow: hidden;
+}
+
+.gotham-map-label {
+    position: absolute;
+    top: 12px;
+    left: 16px;
+    font-size: .52rem;
+    letter-spacing: .3em;
+    color: rgba(245, 197, 24, .3);
+    font-family: monospace;
+    text-transform: uppercase;
+    z-index: 2;
+}
+
+.gotham-map-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Scan lines — use translateY on pseudo so GPU can composite without repaint */
+.gotham-map-scan {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(0deg,
+            transparent,
+            transparent 3px,
+            rgba(245, 197, 24, .012) 3px,
+            rgba(245, 197, 24, .012) 4px);
+    background-size: 100% 8px;
+    overflow: hidden;
+}
+
+.gotham-map-scan::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    height: 200%;
+    background: inherit;
+    animation: mapScan 6s linear infinite;
+    will-change: transform;
+}
+
+@keyframes mapScan {
+    0%   { transform: translateY(0); }
+    100% { transform: translateY(-50%); }
+}
+
+/* District cards */
+.gotham-districts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+}
+
+.district-card {
+    display: flex;
+    gap: 18px;
+    padding: 28px 24px;
+    background: var(--bat-black);
+    border: 1px solid rgba(245, 197, 24, .05);
+    transition: border-color .4s, background .4s;
+    cursor: default;
+    align-items: flex-start;
+}
+
+.district-card:hover {
+    background: rgba(245, 197, 24, .02);
+    border-color: rgba(245, 197, 24, .14);
+}
+
+.district-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 6px;
+    transition: transform .3s;
+}
+
+.district-card:hover .district-dot {
+    transform: scale(1.5);
+}
+
+.district-body {
+    flex: 1;
+}
+
+.district-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    gap: 10px;
+}
+
+.district-name {
+    font-family: 'Cinzel', serif;
+    font-size: .95rem;
+    font-weight: 700;
+    color: #ddd;
+    margin-bottom: 3px;
+}
+
+.district-sub {
+    font-size: .58rem;
+    letter-spacing: .18em;
+    color: #444;
+    text-transform: uppercase;
+}
+
+.district-threat {
+    font-size: .55rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    border: 1px solid;
+    padding: 3px 8px;
+    white-space: nowrap;
+    font-family: 'Cinzel', serif;
+    flex-shrink: 0;
+}
+
+.district-desc {
+    font-size: .78rem;
+    line-height: 1.85;
+    color: #4a4a4a;
+    font-weight: 300;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   TIMELINE / LEGACY
+   ═══════════════════════════════════════════════════════════════ */
+.timeline-section {
+    padding: 120px 40px;
+    background: var(--bat-black);
+    border-top: 1px solid rgba(245, 197, 24, .06);
+    position: relative;
+    overflow: hidden;
+}
+
+.timeline-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.timeline-header {
+    margin-bottom: 80px;
+    text-align: center;
+}
+
+.timeline-subtitle {
+    font-size: .88rem;
+    line-height: 1.8;
+    color: #555;
+    margin-top: 14px;
+    font-weight: 300;
+}
+
+/* The vertical spine */
+.timeline-track {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.timeline-spine {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom,
+            transparent,
+            rgba(245, 197, 24, .3) 5%,
+            rgba(245, 197, 24, .15) 50%,
+            rgba(245, 197, 24, .3) 95%,
+            transparent);
+    transform: translateX(-50%);
+}
+
+/* Each event */
+.timeline-event {
+    display: grid;
+    grid-template-columns: 1fr 40px 1fr;
+    align-items: center;
+    min-height: 100px;
+    position: relative;
+}
+
+.timeline-event--left .timeline-event-content {
+    grid-column: 1;
+    text-align: right;
+    padding: 24px 40px 24px 0;
+}
+
+.timeline-event--right .timeline-event-content {
+    grid-column: 3;
+    text-align: left;
+    padding: 24px 0 24px 40px;
+}
+
+.timeline-event--left .timeline-node {
+    grid-column: 2;
+}
+
+.timeline-event--right .timeline-node {
+    grid-column: 2;
+}
+
+.timeline-node {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    position: relative;
+    z-index: 2;
+}
+
+.timeline-node-inner {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid rgba(245, 197, 24, .6);
+    background: var(--bat-black);
+    transition: background .3s, box-shadow .3s;
+}
+
+.timeline-event:hover .timeline-node-inner {
+    background: var(--bat-yellow);
+    box-shadow: 0 0 16px rgba(245, 197, 24, .6);
+}
+
+/* Connector lines from node to content */
+.timeline-event--left .timeline-event-content::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 40px;
+    height: 1px;
+    background: rgba(245, 197, 24, .15);
+    transform: translateY(-50%);
+}
+
+.timeline-event--right .timeline-event-content::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 40px;
+    height: 1px;
+    background: rgba(245, 197, 24, .15);
+    transform: translateY(-50%);
+}
+
+/* Content styling */
+.timeline-event-content {
+    position: relative;
+}
+
+.timeline-year {
+    font-family: 'Cinzel', serif;
+    font-size: .62rem;
+    letter-spacing: .28em;
+    color: rgba(245, 197, 24, .55);
+    display: block;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.timeline-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #ccc;
+    margin-bottom: 8px;
+    line-height: 1.2;
+}
+
+.timeline-event:hover .timeline-title {
+    color: #fff;
+}
+
+.timeline-desc {
+    font-size: .78rem;
+    line-height: 1.85;
+    color: #454545;
+    font-weight: 300;
+    max-width: 340px;
+}
+
+.timeline-event--right .timeline-desc {
+    margin-left: 0;
+}
+
+/* Alternate row backgrounds for rhythm */
+.timeline-event:nth-child(even) .timeline-event-content {
+    background: rgba(245, 197, 24, .012);
+    border: 1px solid rgba(245, 197, 24, .04);
+}
+
+/* ── RESPONSIVE ──────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+    .batmobile-layout {
+        grid-template-columns: 180px 1fr;
+    }
+
+    .gotham-districts {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .batmobile-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .batmobile-tabs {
+        flex-direction: row;
+        overflow-x: auto;
+        border-right: none;
+        border-bottom: 1px solid rgba(245, 197, 24, .08);
+    }
+
+    .batmobile-tab {
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
+        padding: 14px 16px;
+    }
+
+    .batmobile-tab::after {
+        top: auto;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: auto;
+        height: 2px;
+        transform: scaleX(0);
+    }
+
+    .batmobile-tab.active::after {
+        transform: scaleX(1);
+    }
+
+    .batmobile-tab-era {
+        display: none;
+    }
+
+    .gotham-districts {
+        grid-template-columns: 1fr;
+    }
+
+    .gotham-section,
+    .batmobile-section,
+    .timeline-section {
+        padding: 80px 20px;
+    }
+
+    /* Timeline goes single column on mobile */
+    .timeline-spine {
+        left: 16px;
+    }
+
+    .timeline-event {
+        grid-template-columns: 40px 1fr;
+    }
+
+    .timeline-event--left .timeline-event-content,
+    .timeline-event--right .timeline-event-content {
+        grid-column: 2;
+        text-align: left;
+        padding: 20px 0 20px 24px;
+    }
+
+    .timeline-event--left .timeline-node,
+    .timeline-event--right .timeline-node {
+        grid-column: 1;
+    }
+
+    .timeline-event--left .timeline-event-content::after {
+        display: none;
+    }
+
+    .timeline-event--right .timeline-event-content::before {
+        display: none;
+    }
+
+    .timeline-event:nth-child(even) .timeline-event-content {
+        background: none;
+        border: none;
+    }
+}
+
+.batmobile-iframe-wrap {
+    width: 100%;
+    height: clamp(340px, 55vw, 600px);
+    border: 1px solid rgba(245, 197, 24, .12);
+    overflow: hidden;
+    position: relative;
+}
+
+.batmobile-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+}
+
+/* ── GOTHAM MAP VIEWER ───────────────────────────────────── */
+.gotham-map-wrap {
+    position: relative;
+    margin-bottom: 60px;
+    border: 1px solid rgba(245, 197, 24, .14);
+    background: #020204;
+    overflow: hidden;
+    height: 520px;
+}
+
+.gotham-map-viewer {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    cursor: grab;
+    position: relative;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.gotham-map-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    transform-origin: center center;
+    max-width: none;
+    width: 100%;
+    /* ← changed from height: 100% to width: 100% */
+    height: auto;
+    /* ← changed from auto to auto */
+    pointer-events: none;
+    filter: sepia(0.55) brightness(0.55) contrast(1.2) hue-rotate(5deg) saturate(0.7);
+    will-change: transform;
+    display: block;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.gotham-map-viewer:hover .gotham-map-img {
+    filter: sepia(0.45) brightness(0.65) contrast(1.25) hue-rotate(5deg) saturate(0.85);
+}
+
+/* Yellow-tinted scanline overlay */
+.gotham-map-tint {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+    background:
+        repeating-linear-gradient(0deg,
+            transparent,
+            transparent 3px,
+            rgba(245, 197, 24, .018) 3px,
+            rgba(245, 197, 24, .018) 4px);
+    mix-blend-mode: screen;
+}
+
+/* Vignette */
+.gotham-map-viewer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 3;
+    background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, .75) 100%);
+}
+
+/* Corner brackets */
+.gmap-corner {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    z-index: 5;
+    pointer-events: none;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+}
+
+.gotham-map-viewer:hover .gmap-corner {
+    opacity: 1;
+}
+
+.gmap-corner--tl {
+    top: 14px;
+    left: 14px;
+    border-top: 1px solid rgba(245, 197, 24, .6);
+    border-left: 1px solid rgba(245, 197, 24, .6);
+}
+
+.gmap-corner--tr {
+    top: 14px;
+    right: 14px;
+    border-top: 1px solid rgba(245, 197, 24, .6);
+    border-right: 1px solid rgba(245, 197, 24, .6);
+}
+
+.gmap-corner--bl {
+    bottom: 14px;
+    left: 14px;
+    border-bottom: 1px solid rgba(245, 197, 24, .6);
+    border-left: 1px solid rgba(245, 197, 24, .6);
+}
+
+.gmap-corner--br {
+    bottom: 14px;
+    right: 14px;
+    border-bottom: 1px solid rgba(245, 197, 24, .6);
+    border-right: 1px solid rgba(245, 197, 24, .6);
+}
+
+/* Zoom / pan controls */
+.gotham-map-controls {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.gmap-btn {
+    width: 34px;
+    height: 34px;
+    background: rgba(0, 0, 0, .85);
+    border: 1px solid rgba(245, 197, 24, .25);
+    color: rgba(245, 197, 24, .7);
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .2s, border-color .2s, color .2s;
+    font-family: 'Cinzel', serif;
+    /* backdrop-filter removed — solid bg achieves same look without compositing cost */
+}
+
+.gmap-btn:hover {
+    background: rgba(245, 197, 24, .12);
+    border-color: rgba(245, 197, 24, .6);
+    color: #f5c518;
+}
+
+.gmap-btn--reset {
+    font-size: .75rem;
+    letter-spacing: 0;
+    margin-top: 4px;
+    border-top: 1px solid rgba(245, 197, 24, .12);
+}
+
+/* Hint text */
+.gotham-map-hint {
+    position: absolute;
+    bottom: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: .5rem;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    color: rgba(245, 197, 24, .28);
+    font-family: monospace;
+    z-index: 6;
+    white-space: nowrap;
+    pointer-events: none;
+    transition: opacity .4s;
+}
+
+.gotham-map-viewer:hover .gotham-map-hint {
+    opacity: 0;
+}
+
+/* Scan animation stays on .gotham-map-scan as before */
+.gotham-map-scan {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 4;
+    background: repeating-linear-gradient(0deg,
+            transparent, transparent 3px,
+            rgba(245, 197, 24, .012) 3px,
+            rgba(245, 197, 24, .012) 4px);
+    animation: mapScan 6s linear infinite;
+    background-size: 100% 8px;
+}
+
+@media (max-width: 768px) {
+    .gotham-map-wrap {
+        height: 340px;
+    }
+}

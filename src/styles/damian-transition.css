@@ -1,0 +1,451 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&display=swap');
+
+/* ══════════════════════════════════════════════════════════
+   DAMIAN WAYNE TRANSITION — SMOKE · RAIN · BLADE · SHARDS
+   6-phase sequence
+   ══════════════════════════════════════════════════════════ */
+
+.dw-transition {
+    position: fixed;
+    inset: 0;
+    z-index: 120;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #000;
+}
+
+/* ── BACKGROUNDS ─────────────────────────────── */
+.dw-t-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 70% at 50% 50%, #070f07 0%, #000 70%);
+}
+
+.dw-t-fog {
+    position: absolute; inset: 0;
+    background:
+        radial-gradient(ellipse 80% 50% at 50% 80%, #1d7a3220 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 25% 70%, #1d7a3215 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    z-index: 2;
+}
+
+.phase-1 .dw-t-fog,
+.phase-2 .dw-t-fog,
+.phase-3 .dw-t-fog,
+.phase-4 .dw-t-fog,
+.phase-5 .dw-t-fog { opacity: 1; }
+
+.dw-t-vignette {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 90% 90% at 50% 50%, transparent 40%, rgba(0,0,0,0.7) 100%);
+    z-index: 3; pointer-events: none;
+}
+
+.dw-t-scanlines {
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(0deg,
+        transparent,
+        transparent 2px,
+        rgba(29, 122, 50, 0.018) 2px,
+        rgba(29, 122, 50, 0.018) 4px);
+    z-index: 25; pointer-events: none;
+}
+
+/* ── CORNER MARKS ─────────────────────────────── */
+.dw-corner {
+    position: absolute;
+    width: 28px; height: 28px;
+    border-color: #1d7a3245;
+    border-style: solid;
+    opacity: 0; z-index: 8;
+    transition: opacity 0.4s ease, width 0.3s ease, height 0.3s ease, border-color 0.3s ease;
+}
+
+.dw-corner--tl { top: 20px; left: 20px;   border-width: 2px 0 0 2px; }
+.dw-corner--tr { top: 20px; right: 20px;  border-width: 2px 2px 0 0; }
+.dw-corner--bl { bottom: 20px; left: 20px;  border-width: 0 0 2px 2px; }
+.dw-corner--br { bottom: 20px; right: 20px; border-width: 0 2px 2px 0; }
+
+.phase-1 .dw-corner,
+.phase-2 .dw-corner,
+.phase-3 .dw-corner,
+.phase-4 .dw-corner,
+.phase-5 .dw-corner { opacity: 1; }
+
+.phase-3 .dw-corner,
+.phase-4 .dw-corner {
+    width: 36px; height: 36px;
+    border-color: #28a044aa;
+}
+
+.phase-6 .dw-corner { opacity: 0; }
+
+/* ── KANJI WATERMARKS ─────────────────────────── */
+.dw-t-kanji {
+    position: absolute;
+    font-family: serif;
+    font-size: 10rem;
+    color: #1d7a32;
+    opacity: 0;
+    pointer-events: none; z-index: 5;
+    user-select: none;
+    transition: opacity 0.5s ease;
+}
+
+.dw-t-kanji--l { left: 4vw; top: 50%; transform: translateY(-50%) rotate(-8deg); }
+.dw-t-kanji--r { right: 4vw; top: 50%; transform: translateY(-50%) rotate(8deg); }
+
+.phase-2 .dw-t-kanji,
+.phase-3 .dw-t-kanji,
+.phase-4 .dw-t-kanji,
+.phase-5 .dw-t-kanji { opacity: 0.1; }
+
+.phase-6 .dw-t-kanji { opacity: 0; }
+
+/* ── JADE RAIN ─────────────────────────────────── */
+.dw-t-rain {
+    position: absolute; top: 0; left: 0; right: 0; height: 100%;
+    pointer-events: none; z-index: 4; overflow: hidden;
+}
+
+.dw-rain-drop {
+    position: absolute;
+    top: -80px;
+    width: 1px;
+    height: var(--h, 60px);
+    background: linear-gradient(to bottom, transparent, #1d7a3280, #28a044cc, transparent);
+    opacity: 0;
+    will-change: transform, opacity;
+}
+
+.phase-1 .dw-rain-drop,
+.phase-2 .dw-rain-drop,
+.phase-3 .dw-rain-drop {
+    animation: rainFall var(--dur, 0.7s) linear var(--delay, 0s) infinite;
+}
+
+@keyframes rainFall {
+    0%   { transform: translateY(0);   opacity: 0; }
+    10%  { opacity: 0.7; }
+    90%  { opacity: 0.4; }
+    100% { transform: translateY(110vh); opacity: 0; }
+}
+
+.phase-4 .dw-rain-drop,
+.phase-5 .dw-rain-drop { animation: none; opacity: 0; transition: opacity 0.3s ease; }
+
+/* ── SMOKE ─────────────────────────────────────── */
+.dw-t-smoke {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 100%;
+    pointer-events: none; z-index: 3;
+}
+
+.dw-smoke-particle {
+    position: absolute; bottom: -60px;
+    width: var(--size, 80px); height: var(--size, 80px);
+    border-radius: 50%;
+    /* blur() removed — use higher opacity + scale instead (GPU blur is too costly on 30 elements) */
+    background: radial-gradient(circle, #1d7a3226 0%, transparent 70%);
+    opacity: 0;
+    will-change: transform, opacity;
+}
+
+.phase-1 .dw-smoke-particle,
+.phase-2 .dw-smoke-particle,
+.phase-3 .dw-smoke-particle {
+    animation: smokeUp var(--dur, 2.5s) ease-out var(--delay, 0s) forwards;
+}
+
+@keyframes smokeUp {
+    0%   { opacity: 0;    transform: translateY(0) translateX(0) scale(0.6); }
+    20%  { opacity: 0.6; }
+    70%  { opacity: 0.25; }
+    100% { opacity: 0;    transform: translateY(-75vh) translateX(var(--drift, 20px)) scale(2); }
+}
+
+/* ── CENTRE STAGE ─────────────────────────────── */
+.dw-t-center {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+}
+
+/* ── KATANA ────────────────────────────────────── */
+.dw-katana-wrap {
+    position: relative;
+    width: 44px; height: 390px;
+    opacity: 0;
+    transform: translateY(-150px) rotate(-10deg);
+    transition: opacity 0.5s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+}
+
+.phase-2 .dw-katana-wrap,
+.phase-3 .dw-katana-wrap,
+.phase-4 .dw-katana-wrap,
+.phase-5 .dw-katana-wrap {
+    opacity: 1;
+    transform: translateY(0) rotate(-10deg);
+}
+
+/* hover during phase 3 */
+.phase-3 .dw-katana-wrap {
+    animation: katanahover 0.35s ease;
+}
+
+@keyframes katanahover {
+    0%  { transform: translateY(0) rotate(-10deg); }
+    40% { transform: translateY(-10px) scale(1.04) rotate(-12deg); }
+    100%{ transform: translateY(0) rotate(-10deg); }
+}
+
+.phase-6 .dw-katana-wrap {
+    opacity: 0;
+    transform: translateY(80px) rotate(-10deg);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.dw-katana-svg {
+    width: 100%; height: 100%;
+    filter:
+        drop-shadow(0 0 14px #1d7a3299)
+        drop-shadow(0 0 50px #1d7a3250)
+        drop-shadow(0 4px 24px #00000099);
+}
+
+.phase-3 .dw-katana-svg,
+.phase-4 .dw-katana-svg {
+    filter:
+        drop-shadow(0 0 22px #28a044cc)
+        drop-shadow(0 0 70px #1d7a3280)
+        drop-shadow(0 4px 24px #00000099);
+}
+
+/* Rings */
+.dw-katana-ring {
+    position: absolute; top: 50%; left: 50%;
+    border: 1px solid #1d7a3230;
+    border-radius: 50%;
+    animation: ringPulse 2.2s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.dw-katana-ring         { width: 100px; height: 100px; transform: translate(-50%,-50%); }
+.dw-katana-ring--2      { width: 160px; height: 160px; transform: translate(-50%,-50%); animation-delay: 0.6s; border-color: #1d7a321a; }
+.dw-katana-ring--3      { width: 220px; height: 220px; transform: translate(-50%,-50%); animation-delay: 1.2s; border-color: #1d7a3210; }
+
+@keyframes ringPulse {
+    0%, 100% { transform: translate(-50%,-50%) scale(1); opacity: 1; }
+    50%       { transform: translate(-50%,-50%) scale(1.1); opacity: 0.3; }
+}
+
+/* ── SLASH LINES ───────────────────────────────── */
+.dw-t-slash {
+    position: absolute; z-index: 18;
+    opacity: 0; pointer-events: none;
+}
+
+/* Slash 1 — diagonal left-to-right (scaleX replaces width animation — compositor-only) */
+.dw-t-slash--1 {
+    top: 40%; left: 0;
+    width: 130%; height: 2px;
+    background: linear-gradient(to right, transparent, #28a04488 10%, #fff 50%, #28a04488 90%, transparent);
+    transform: rotate(-12deg) scaleX(0);
+    transform-origin: left center;
+    box-shadow: 0 0 18px #28a04490, 0 0 50px #1d7a3250;
+    border-radius: 1px;
+    will-change: transform, opacity;
+}
+
+.phase-3 .dw-t-slash--1 {
+    animation: slashCut1 0.32s cubic-bezier(0.16,1,0.3,1) 0s forwards;
+}
+
+@keyframes slashCut1 {
+    0%   { transform: rotate(-12deg) scaleX(0); opacity: 0; }
+    8%   { opacity: 1; }
+    70%  { opacity: 0.85; }
+    100% { transform: rotate(-12deg) scaleX(1); opacity: 0; }
+}
+
+/* Slash 2 — opposite diagonal */
+.dw-t-slash--2 {
+    top: 55%; right: 0;
+    width: 130%; height: 1.5px;
+    background: linear-gradient(to left, transparent, #d4a84070 10%, #d4a840cc 50%, #d4a84070 90%, transparent);
+    transform: rotate(10deg) scaleX(0);
+    transform-origin: right center;
+    box-shadow: 0 0 12px #d4a84070;
+    border-radius: 1px;
+    will-change: transform, opacity;
+}
+
+.phase-4 .dw-t-slash--2 {
+    animation: slashCut2 0.28s cubic-bezier(0.16,1,0.3,1) 0.05s forwards;
+}
+
+@keyframes slashCut2 {
+    0%   { transform: rotate(10deg) scaleX(0); opacity: 0; }
+    8%   { opacity: 0.9; }
+    100% { transform: rotate(10deg) scaleX(1); opacity: 0; }
+}
+
+/* Slash 3 — thin horizontal */
+.dw-t-slash--3 {
+    top: 48%; left: 0;
+    width: 120%; height: 1px;
+    background: linear-gradient(to right, transparent, #28a04450 20%, #28a04490 50%, #28a04450 80%, transparent);
+    border-radius: 1px;
+    transform: scaleX(0);
+    transform-origin: left center;
+    will-change: transform, opacity;
+}
+
+.phase-4 .dw-t-slash--3 {
+    animation: slashCut3 0.2s cubic-bezier(0.16,1,0.3,1) 0.12s forwards;
+}
+
+@keyframes slashCut3 {
+    0%   { transform: scaleX(0); opacity: 0; }
+    10%  { opacity: 0.6; }
+    100% { transform: scaleX(1); opacity: 0; }
+}
+
+/* ── FLASH ─────────────────────────────────────── */
+.dw-t-flash {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at center, #1d7a32 0%, #0a1a0a 50%, transparent 72%);
+    opacity: 0; pointer-events: none; z-index: 20;
+}
+
+.phase-3 .dw-t-flash {
+    animation: jadeFlash1 0.25s ease 0.05s forwards;
+}
+
+.phase-4 .dw-t-flash {
+    animation: jadeFlash2 0.35s ease 0.06s forwards;
+}
+
+@keyframes jadeFlash1 {
+    0%  { opacity: 0; }
+    30% { opacity: 0.3; }
+    100%{ opacity: 0; }
+}
+
+@keyframes jadeFlash2 {
+    0%  { opacity: 0; }
+    25% { opacity: 0.55; }
+    100%{ opacity: 0; }
+}
+
+/* ── SHARDS BURST ─────────────────────────────── */
+.dw-t-shards {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 0; height: 0;
+    pointer-events: none; z-index: 19;
+}
+
+.dw-shard {
+    position: absolute;
+    width: var(--size, 4px);
+    height: var(--size, 4px);
+    background: #28a044;
+    border-radius: 1px;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+}
+
+.phase-4 .dw-shard {
+    animation: shardBurst var(--dur, 0.5s) cubic-bezier(0.16,1,0.3,1) var(--delay, 0s) forwards;
+}
+
+@keyframes shardBurst {
+    0%   {
+        opacity: 1;
+        transform: translate(-50%, -50%) rotate(0deg) translateX(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) rotate(calc(var(--angle))) translateX(var(--dist));
+    }
+}
+
+/* ── NAME LABEL ────────────────────────────────── */
+.dw-t-label {
+    display: flex;
+    justify-content: center;
+    gap: 0.1em;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.2rem, 7vw, 5.5rem);
+    letter-spacing: 0.22em;
+    color: #1d7a32;
+    text-shadow:
+        0 0 20px #1d7a32,
+        0 0 60px #1d7a3290,
+        0 0 100px #1d7a3250;
+    text-transform: uppercase;
+}
+
+.dw-t-label span {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: none;
+}
+
+.phase-5 .dw-t-label span {
+    animation: letterIn 0.35s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+
+.phase-5 .dw-t-label span:nth-child(1)  { animation-delay: 0.00s; }
+.phase-5 .dw-t-label span:nth-child(2)  { animation-delay: 0.04s; }
+.phase-5 .dw-t-label span:nth-child(3)  { animation-delay: 0.08s; }
+.phase-5 .dw-t-label span:nth-child(4)  { animation-delay: 0.12s; }
+.phase-5 .dw-t-label span:nth-child(5)  { animation-delay: 0.16s; }
+.phase-5 .dw-t-label span:nth-child(6)  { animation-delay: 0.20s; }
+.phase-5 .dw-t-label span:nth-child(7)  { animation-delay: 0.24s; }
+.phase-5 .dw-t-label span:nth-child(8)  { animation-delay: 0.28s; }
+.phase-5 .dw-t-label span:nth-child(9)  { animation-delay: 0.32s; }
+.phase-5 .dw-t-label span:nth-child(10) { animation-delay: 0.36s; }
+.phase-5 .dw-t-label span:nth-child(11) { animation-delay: 0.40s; }
+.phase-5 .dw-t-label span:nth-child(12) { animation-delay: 0.44s; }
+
+@keyframes letterIn {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.phase-6 .dw-t-label span {
+    opacity: 0;
+    transition: opacity 0.15s ease;
+}
+
+/* ── SUB LABEL ─────────────────────────────────── */
+.dw-t-sublabel {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: clamp(0.5rem, 1.4vw, 0.7rem);
+    letter-spacing: 0.5em; text-transform: uppercase;
+    color: #d4a840;
+    opacity: 0; text-shadow: 0 0 12px #d4a84060;
+    transition: opacity 0.5s ease 0.5s;
+}
+
+.phase-5 .dw-t-sublabel { opacity: 0.85; }
+.phase-6 .dw-t-sublabel { opacity: 0; transition-delay: 0s; }
+
+/* ── FINAL WIPE ────────────────────────────────── */
+.dw-t-wipe {
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, #030507 0%, #000 60%);
+    transform: translateY(-100%);
+    z-index: 30;
+}
+
+.phase-6 .dw-t-wipe {
+    transform: translateY(0);
+    transition: transform 0.55s cubic-bezier(0.76,0,0.24,1) 0.1s;
+}

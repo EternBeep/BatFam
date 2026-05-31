@@ -1,0 +1,214 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Share+Tech+Mono&display=swap');
+
+.nw-transition {
+    position: fixed;
+    inset: 0;
+    background: #02040c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    z-index: 100;
+    contain: layout style;
+}
+
+.nw-transition__bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, #0a1628 0%, #02040c 70%);
+    transition: opacity 0.4s;
+}
+
+/* Escrima sticks */
+.nw-transition__stick {
+    position: absolute;
+    width: 4px;
+    height: 120vh;
+    background: linear-gradient(to bottom, transparent, #1e90ff, #00d4ff, #1e90ff, transparent);
+    border-radius: 2px;
+    box-shadow: 0 0 20px #1e90ff, 0 0 40px #1e90ff60;
+    opacity: 0;
+    transition: opacity 0.1s;
+}
+
+.nw-transition__stick--left {
+    transform: rotate(-45deg) translateX(-200px);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.1s;
+    will-change: transform, opacity;
+}
+
+.nw-transition__stick--right {
+    transform: rotate(45deg) translateX(200px);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.05s, opacity 0.1s;
+    will-change: transform, opacity;
+}
+
+.phase-1 .nw-transition__stick,
+.phase-2 .nw-transition__stick,
+.phase-3 .nw-transition__stick {
+    opacity: 1;
+}
+
+.phase-1 .nw-transition__stick--left,
+.phase-2 .nw-transition__stick--left,
+.phase-3 .nw-transition__stick--left {
+    transform: rotate(-45deg) translateX(0);
+}
+
+.phase-1 .nw-transition__stick--right,
+.phase-2 .nw-transition__stick--right,
+.phase-3 .nw-transition__stick--right {
+    transform: rotate(45deg) translateX(0);
+}
+
+/* Burst */
+.nw-transition__burst {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: scale(0.3);
+    transition: opacity 0.4s ease 0.5s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.5s;
+    will-change: transform, opacity;
+}
+
+.phase-1 .nw-transition__burst,
+.phase-2 .nw-transition__burst {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.phase-3 .nw-transition__burst {
+    opacity: 0;
+    transform: scale(2);
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.nw-transition__burst-ring {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border: 1px solid #1e90ff40;
+    border-radius: 50%;
+    animation: expandRing 1s ease-out infinite;
+    will-change: transform, opacity;
+}
+
+.nw-transition__burst-ring--2 {
+    animation-delay: 0.4s;
+    border-color: #00d4ff30;
+}
+
+@keyframes expandRing {
+    0% {
+        transform: scale(0.5);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(2.5);
+        opacity: 0;
+    }
+}
+
+.nw-transition__symbol {
+    width: 120px;
+    filter: drop-shadow(0 0 12px #1e90ff) drop-shadow(0 0 30px #1e90ff60);
+}
+
+/* Flash text */
+.nw-transition__text {
+    position: absolute;
+    bottom: 30%;
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(1rem, 3vw, 1.4rem);
+    font-weight: 900;
+    letter-spacing: 0.4em;
+    color: #1e90ff;
+    display: flex;
+    gap: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease 0.8s;
+}
+
+.phase-1 .nw-transition__text,
+.phase-2 .nw-transition__text {
+    opacity: 1;
+}
+
+.nw-transition__text span {
+    display: inline-block;
+    animation: letterIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.nw-transition__text span:nth-child(1) {
+    animation-delay: 0.8s;
+}
+
+.nw-transition__text span:nth-child(2) {
+    animation-delay: 0.85s;
+}
+
+.nw-transition__text span:nth-child(3) {
+    animation-delay: 0.9s;
+}
+
+.nw-transition__text span:nth-child(4) {
+    animation-delay: 0.95s;
+}
+
+.nw-transition__text span:nth-child(5) {
+    animation-delay: 1s;
+}
+
+.nw-transition__text span:nth-child(6) {
+    animation-delay: 1.05s;
+}
+
+.nw-transition__text span:nth-child(7) {
+    animation-delay: 1.1s;
+}
+
+.nw-transition__text span:nth-child(8) {
+    animation-delay: 1.15s;
+}
+
+.nw-transition__text span:nth-child(9) {
+    animation-delay: 1.2s;
+}
+
+.nw-transition__text span:nth-child(10) {
+    animation-delay: 1.25s;
+}
+
+.nw-transition__text span:nth-child(11) {
+    animation-delay: 1.3s;
+}
+
+@keyframes letterIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Final wipe */
+.nw-transition__wipe {
+    position: absolute;
+    inset: 0;
+    background: #02040c;
+    transform: translateX(-100%);
+    transition: transform 0s;
+    will-change: transform;
+}
+
+.phase-3 .nw-transition__wipe {
+    transform: translateX(0);
+    transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1) 0.1s;
+}

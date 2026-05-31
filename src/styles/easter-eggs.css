@@ -1,0 +1,825 @@
+/* ═══════════════════════════════════════════════════════════════════
+   EASTER EGGS — All easter egg overlays and animations
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── Toast Notifications ──────────────────────────────────────────── */
+.ee-toast-container {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none;
+    max-width: 340px;
+}
+
+.ee-toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 14px;
+    background: #0e0e14;
+    border: 1px solid #2a2a3a;
+    border-left: 3px solid #f5c518;
+    border-radius: 4px;
+    color: #e8e8e0;
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+    line-height: 1.4;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.7), 0 0 16px rgba(245,197,24,0.08);
+    animation: ee-toast-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+    pointer-events: all;
+    max-width: 340px;
+}
+
+.ee-toast--joker  { border-left-color: #00e676; }
+.ee-toast--villain { border-left-color: #f44336; }
+.ee-toast--konami  { border-left-color: #7c4dff; background: #0e0a1e; }
+.ee-toast--gotham  { border-left-color: #37474f; }
+.ee-toast--nightwing { border-left-color: #42a5f5; }
+.ee-toast--riddler { border-left-color: #00e676; }
+.ee-toast--hint    { border-left-color: #555; border-style: dashed; opacity: 0.8; }
+
+.ee-toast-icon {
+    font-size: 1.2rem;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.ee-toast-text {
+    flex: 1;
+    color: #ccc;
+}
+
+.ee-toast-close {
+    background: none;
+    border: none;
+    color: #555;
+    cursor: pointer;
+    font-size: 1.1rem;
+    line-height: 1;
+    padding: 0;
+    flex-shrink: 0;
+    transition: color 0.2s;
+}
+.ee-toast-close:hover { color: #f5c518; }
+
+@keyframes ee-toast-in {
+    from { opacity: 0; transform: translateX(30px) scale(0.95); }
+    to   { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+/* ── Bat Symbol Click Burst ───────────────────────────────────────── */
+.ee-bat-symbol {
+    position: fixed;
+    z-index: 99998;
+    font-size: 24px;
+    pointer-events: none;
+    animation: ee-bat-burst 1.5s ease-out forwards;
+    filter: drop-shadow(0 0 8px rgba(245,197,24,0.8));
+}
+
+@keyframes ee-bat-burst {
+    0%   { opacity: 1; transform: scale(0.5) rotate(0deg); }
+    40%  { opacity: 1; transform: scale(1.6) rotate(-20deg); }
+    100% { opacity: 0; transform: scale(0.3) rotate(30deg) translateY(-60px); }
+}
+
+/* ── Batarang Rain ────────────────────────────────────────────────── */
+.ee-batarang-rain {
+    position: fixed;
+    inset: 0;
+    z-index: 99990;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.ee-batarang-item {
+    position: absolute;
+    top: -40px;
+    animation: ee-batarang-fall linear forwards;
+    filter: drop-shadow(0 0 6px rgba(245,197,24,0.6));
+}
+
+@keyframes ee-batarang-fall {
+    0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
+    80%  { opacity: 1; }
+    100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
+
+/* ── Joker Mode ───────────────────────────────────────────────────── */
+.ee-joker-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99995;
+    background: rgba(0, 40, 0, 0.92);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation: ee-joker-in 0.3s ease both, ee-joker-out 0.4s ease 3.1s forwards;
+    pointer-events: none;
+}
+
+@keyframes ee-joker-in  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes ee-joker-out { from { opacity: 1; } to { opacity: 0; } }
+
+.ee-joker-ha {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    max-width: 700px;
+}
+
+.ee-joker-word {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2rem, 5vw, 4rem);
+    color: #00e676;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    animation: ee-ha-pop 0.2s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    text-shadow: 0 0 20px rgba(0,230,118,0.6);
+}
+
+@keyframes ee-ha-pop {
+    0%   { transform: scale(0) rotate(-10deg); opacity: 0; }
+    60%  { transform: scale(1.3) rotate(5deg); }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+.ee-joker-face {
+    font-size: 5rem;
+    margin: 16px 0 8px;
+    animation: ee-joker-spin 1s linear infinite;
+}
+
+@keyframes ee-joker-spin {
+    0%   { transform: rotate(-5deg); }
+    50%  { transform: rotate(5deg); }
+    100% { transform: rotate(-5deg); }
+}
+
+.ee-joker-quote {
+    font-family: 'Cinzel', serif;
+    color: #00e676;
+    font-size: 1.2rem;
+    letter-spacing: 0.2em;
+    opacity: 0.7;
+    margin: 0;
+    font-style: italic;
+}
+
+/* ── Bat Signal ───────────────────────────────────────────────────── */
+.ee-bat-signal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99994;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: 10vh;
+    animation: ee-signal-fade 5s ease forwards;
+}
+
+@keyframes ee-signal-fade {
+    0%   { opacity: 0; }
+    10%  { opacity: 1; }
+    80%  { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+.ee-bat-signal-beam {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 160px solid transparent;
+    border-right: 160px solid transparent;
+    border-bottom: 100vh solid rgba(245,197,24,0.07);
+    pointer-events: none;
+}
+
+.ee-bat-signal-circle {
+    position: absolute;
+    top: 8vh;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(245,197,24,0.9) 0%, rgba(245,197,24,0.4) 60%, transparent 80%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 60px rgba(245,197,24,0.4), 0 0 120px rgba(245,197,24,0.2);
+    animation: ee-signal-pulse 1s ease-in-out infinite alternate;
+}
+
+@keyframes ee-signal-pulse {
+    from { box-shadow: 0 0 60px rgba(245,197,24,0.4); }
+    to   { box-shadow: 0 0 100px rgba(245,197,24,0.7); }
+}
+
+.ee-bat-signal-svg {
+    width: 80px;
+    height: 48px;
+}
+
+.ee-bat-signal-text {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    color: #f5c518;
+    letter-spacing: 0.4em;
+    text-shadow: 0 0 30px rgba(245,197,24,0.8);
+    margin: 0;
+}
+
+/* ── Alfred Modal ─────────────────────────────────────────────────── */
+.ee-alfred-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99996;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: ee-fade-in 0.3s ease both;
+    backdrop-filter: blur(4px);
+}
+
+.ee-alfred-modal {
+    background: #0e0e14;
+    border: 1px solid #333;
+    border-top: 2px solid #f5c518;
+    padding: 40px 48px;
+    max-width: 460px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 80px rgba(0,0,0,0.9);
+    animation: ee-slide-up 0.4s cubic-bezier(0.16,1,0.3,1) both;
+}
+
+.ee-alfred-avatar {
+    font-size: 3.5rem;
+    margin-bottom: 12px;
+}
+
+.ee-alfred-name {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    color: #f5c518;
+    margin: 0 0 16px;
+    text-transform: uppercase;
+}
+
+.ee-alfred-message {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.05rem;
+    color: #ccc;
+    line-height: 1.7;
+    margin: 0 0 28px;
+    font-style: italic;
+}
+
+.ee-alfred-close {
+    background: none;
+    border: 1px solid #333;
+    color: #777;
+    padding: 8px 24px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.ee-alfred-close:hover {
+    border-color: #f5c518;
+    color: #f5c518;
+}
+
+/* ── Gotham Skyline ───────────────────────────────────────────────── */
+.ee-gotham-skyline {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 99988;
+    pointer-events: none;
+    animation: ee-skyline-slide 4s ease forwards;
+}
+
+@keyframes ee-skyline-slide {
+    0%   { opacity: 0; transform: translateY(100%); }
+    15%  { opacity: 1; transform: translateY(0); }
+    75%  { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(20%); }
+}
+
+.ee-skyline-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ── Riddler Overlay ──────────────────────────────────────────────── */
+.ee-riddler-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99993;
+    background: rgba(0, 20, 0, 0.88);
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: ee-fade-in 0.3s ease both, ee-fade-out 0.5s ease 3.5s forwards;
+}
+
+.ee-riddler-q {
+    position: absolute;
+    color: #00e676;
+    font-family: 'Cinzel', serif;
+    font-weight: 900;
+    animation: ee-q-appear 0.4s ease both;
+    pointer-events: none;
+}
+
+@keyframes ee-q-appear {
+    from { opacity: 0; transform: scale(0) rotate(20deg); }
+    to   { opacity: inherit; transform: scale(1) rotate(0deg); }
+}
+
+.ee-riddler-riddle {
+    position: relative;
+    z-index: 2;
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    color: #00e676;
+    text-align: center;
+    line-height: 1.8;
+    max-width: 500px;
+    padding: 32px;
+    background: rgba(0,10,0,0.8);
+    border: 1px solid rgba(0,230,118,0.2);
+    margin: 0;
+}
+
+.ee-riddler-answer {
+    display: block;
+    margin-top: 16px;
+    font-size: 0.8em;
+    color: rgba(0,230,118,0.5);
+    letter-spacing: 0.2em;
+}
+
+/* ── Konami Overlay ───────────────────────────────────────────────── */
+.ee-konami-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99997;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    animation: ee-fade-in 0.2s ease both, ee-fade-out 0.5s ease 3.5s forwards;
+}
+
+.ee-konami-flash {
+    position: absolute;
+    inset: 0;
+    background: #f5c518;
+    animation: ee-flash 0.15s ease both;
+}
+
+@keyframes ee-flash {
+    0%   { opacity: 0.8; }
+    100% { opacity: 0; }
+}
+
+.ee-konami-center {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 48px;
+    background: rgba(0,0,0,0.95);
+    border: 2px solid #f5c518;
+    box-shadow: 0 0 60px rgba(245,197,24,0.4), inset 0 0 40px rgba(0,0,0,0.8);
+    animation: ee-slide-up 0.5s cubic-bezier(0.16,1,0.3,1) 0.15s both;
+}
+
+.ee-konami-bat {
+    width: 120px;
+    height: 72px;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 20px rgba(245,197,24,0.6));
+    animation: ee-konami-bat-pulse 1s ease-in-out infinite alternate;
+}
+
+@keyframes ee-konami-bat-pulse {
+    from { filter: drop-shadow(0 0 10px rgba(245,197,24,0.4)); }
+    to   { filter: drop-shadow(0 0 30px rgba(245,197,24,0.9)); }
+}
+
+.ee-konami-text {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    color: #f5c518;
+    letter-spacing: 0.3em;
+    margin: 0 0 12px;
+    font-weight: 700;
+}
+
+.ee-konami-sub {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.85rem;
+    color: #888;
+    letter-spacing: 0.2em;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+/* ── Two-Face — Split Screen ──────────────────────────────────────── */
+.ee-twoface-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99995;
+    display: flex;
+    align-items: stretch;
+    animation: ee-fade-in 0.3s ease both, ee-fade-out 0.5s ease 3.5s forwards;
+    pointer-events: none;
+}
+
+.ee-twoface-left,
+.ee-twoface-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+}
+
+.ee-twoface-left {
+    background: rgba(20, 20, 40, 0.92);
+    border-right: 1px solid #333;
+}
+
+.ee-twoface-right {
+    background: rgba(40, 10, 10, 0.92);
+    border-left: 1px solid #333;
+}
+
+.ee-twoface-side-label {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1rem, 2.5vw, 1.6rem);
+    letter-spacing: 0.3em;
+    margin: 0 0 8px;
+    color: #f5c518;
+}
+
+.ee-twoface-sub {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.8rem;
+    color: #666;
+    letter-spacing: 0.15em;
+    margin: 0;
+}
+
+.ee-twoface-divider {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 24px;
+    background: rgba(0,0,0,0.95);
+    border-left: 1px solid #222;
+    border-right: 1px solid #222;
+    gap: 24px;
+    min-width: 200px;
+}
+
+.ee-twoface-coin {
+    width: 80px;
+    height: 80px;
+    perspective: 400px;
+}
+
+.ee-twoface-coin-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: ee-coin-spin 0.5s linear infinite;
+    border-radius: 50%;
+}
+
+@keyframes ee-coin-spin {
+    0%   { transform: rotateY(0deg); }
+    100% { transform: rotateY(360deg); }
+}
+
+.ee-twoface-coin-front,
+.ee-twoface-coin-back {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cinzel', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    backface-visibility: hidden;
+}
+
+.ee-twoface-coin-front {
+    background: radial-gradient(circle, #c8a800, #f5c518);
+    color: #0a0a0f;
+    transform: rotateY(0deg);
+}
+
+.ee-twoface-coin-back {
+    background: radial-gradient(circle, #333, #111);
+    color: #888;
+    transform: rotateY(180deg);
+}
+
+.ee-twoface-fate {
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    color: #555;
+    text-align: center;
+    line-height: 1.8;
+    letter-spacing: 0.1em;
+    margin: 0;
+    font-style: italic;
+}
+
+/* ── Bane — Screen Crack + Shake ──────────────────────────────────── */
+.ee-bane-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99994;
+    background: rgba(0,0,0,0.88);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    animation: ee-fade-in 0.2s ease both, ee-bane-shake 0.5s ease 0.1s, ee-fade-out 0.5s ease 3s forwards;
+}
+
+@keyframes ee-bane-shake {
+    0%,100% { transform: translate(0,0) rotate(0deg); }
+    10%     { transform: translate(-8px, 4px) rotate(-0.5deg); }
+    20%     { transform: translate(8px, -4px) rotate(0.5deg); }
+    30%     { transform: translate(-6px, 6px) rotate(-0.3deg); }
+    40%     { transform: translate(6px, -2px) rotate(0.3deg); }
+    50%     { transform: translate(-4px, 4px) rotate(-0.2deg); }
+    60%     { transform: translate(4px, -4px) rotate(0.2deg); }
+    70%     { transform: translate(-3px, 3px) rotate(-0.1deg); }
+    80%     { transform: translate(3px, -3px) rotate(0.1deg); }
+    90%     { transform: translate(-2px, 2px); }
+}
+
+.ee-bane-crack {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.ee-bane-crack-svg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+}
+
+.ee-bane-center {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.ee-bane-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2rem, 6vw, 4.5rem);
+    color: #fff;
+    font-weight: 900;
+    letter-spacing: 0.3em;
+    margin: 0 0 16px;
+    text-shadow: 0 0 40px rgba(255,50,50,0.5), 2px 2px 0 #111;
+    animation: ee-bane-title-in 0.4s cubic-bezier(0.36,0.07,0.19,0.97) 0.3s both;
+}
+
+@keyframes ee-bane-title-in {
+    from { transform: scale(2); opacity: 0; }
+    to   { transform: scale(1); opacity: 1; }
+}
+
+.ee-bane-quote {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(0.9rem, 2vw, 1.3rem);
+    color: #ccc;
+    margin: 0 0 8px;
+    letter-spacing: 0.1em;
+    font-style: italic;
+}
+
+.ee-bane-sub {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.7rem;
+    color: #555;
+    letter-spacing: 0.3em;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+/* ── Scarecrow — Fear Toxin ────────────────────────────────────────── */
+.ee-scarecrow-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99993;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    animation: ee-fade-in 0.4s ease both, ee-fade-out 0.6s ease 3.4s forwards;
+}
+
+.ee-scarecrow-blur-bg {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 20, 0, 0.9);
+    animation: ee-scarecrow-pulse 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes ee-scarecrow-pulse {
+    from { background: rgba(10, 20, 0, 0.88); }
+    to   { background: rgba(20, 35, 0, 0.95); }
+}
+
+.ee-scarecrow-word {
+    position: absolute;
+    font-family: 'Cinzel', serif;
+    color: rgba(120, 200, 50, 0.3);
+    font-weight: 900;
+    letter-spacing: 0.2em;
+    pointer-events: none;
+    animation: ee-scare-appear 0.5s ease both;
+    text-shadow: 0 0 10px rgba(120,200,50,0.2);
+}
+
+@keyframes ee-scare-appear {
+    from { opacity: 0; transform: scale(0.5) skew(5deg); }
+    to   { opacity: inherit; transform: scale(1) skew(0deg); }
+}
+
+.ee-scarecrow-center {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 40px 48px;
+    background: rgba(0,0,0,0.8);
+    border: 1px solid rgba(120,200,50,0.15);
+}
+
+.ee-scarecrow-face {
+    font-size: 4rem;
+    margin: 0 0 12px;
+    animation: ee-scare-wobble 1s ease-in-out infinite alternate;
+}
+
+@keyframes ee-scare-wobble {
+    from { transform: rotate(-5deg) scale(1); }
+    to   { transform: rotate(5deg) scale(1.1); }
+}
+
+.ee-scarecrow-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1rem, 2.5vw, 1.6rem);
+    color: #7cca30;
+    letter-spacing: 0.3em;
+    margin: 0 0 16px;
+    text-shadow: 0 0 20px rgba(120,200,50,0.5);
+}
+
+.ee-scarecrow-quote {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.95rem;
+    color: #aaa;
+    line-height: 1.8;
+    margin: 0;
+    font-style: italic;
+}
+
+.ee-scarecrow-quote span {
+    display: block;
+    color: #555;
+    font-size: 0.8em;
+    margin-top: 8px;
+    font-style: normal;
+    letter-spacing: 0.15em;
+}
+
+/* ── Ra's al Ghul — Lazarus Pit ────────────────────────────────────── */
+.ee-ras-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99992;
+    background: rgba(0, 15, 5, 0.92);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    animation: ee-fade-in 0.4s ease both, ee-fade-out 0.6s ease 3.4s forwards;
+    overflow: hidden;
+}
+
+.ee-ras-pit {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: linear-gradient(to top, rgba(0,80,20,0.6), transparent);
+}
+
+.ee-ras-bubble {
+    position: absolute;
+    bottom: 10px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,230,80,0.6), rgba(0,160,40,0.2));
+    animation: ee-ras-rise linear infinite;
+    box-shadow: 0 0 8px rgba(0,230,80,0.4);
+}
+
+@keyframes ee-ras-rise {
+    0%   { transform: translateY(0) scale(1); opacity: 0.8; }
+    100% { transform: translateY(-180px) scale(0.3); opacity: 0; }
+}
+
+.ee-ras-center {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 40px 48px;
+}
+
+.ee-ras-icon {
+    font-size: 3.5rem;
+    margin: 0 0 16px;
+    filter: drop-shadow(0 0 16px rgba(0,230,80,0.6));
+}
+
+.ee-ras-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    color: #00e653;
+    letter-spacing: 0.4em;
+    margin: 0 0 20px;
+    text-shadow: 0 0 30px rgba(0,230,80,0.6);
+}
+
+.ee-ras-quote {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1rem;
+    color: #aaa;
+    line-height: 1.9;
+    margin: 0 0 16px;
+    font-style: italic;
+    max-width: 440px;
+}
+
+.ee-ras-name {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.7rem;
+    color: #444;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+/* ── Shared Animations ────────────────────────────────────────────── */
+@keyframes ee-fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes ee-fade-out {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+}
+
+@keyframes ee-slide-up {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+}

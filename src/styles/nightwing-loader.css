@@ -1,0 +1,201 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
+
+.nw-loader {
+    position: fixed;
+    inset: 0;
+    background: #02040c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    font-family: 'Orbitron', monospace;
+}
+
+.nw-loader__canvas {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.nw-loader__content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.nw-loader__emblem {
+    opacity: 0;
+    transform: scaleX(0);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    margin-bottom: 8px;
+}
+
+.nw-loader__content.logo .nw-loader__emblem,
+.nw-loader__content.enter .nw-loader__emblem {
+    opacity: 1;
+    transform: scaleX(1);
+}
+
+.nw-escrima {
+    width: 140px;
+    filter: drop-shadow(0 0 8px #1e90ff) drop-shadow(0 0 20px #1e90ff40);
+}
+
+.nw-loader__title {
+    font-size: clamp(3rem, 10vw, 7rem);
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    color: transparent;
+    background: linear-gradient(135deg, #ffffff 0%, #1e90ff 50%, #00d4ff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    margin: 0;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+    text-shadow: none;
+    filter: drop-shadow(0 0 30px #1e90ff80);
+}
+
+.nw-loader__content.logo .nw-loader__title,
+.nw-loader__content.enter .nw-loader__title {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.nw-loader__sub {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: clamp(0.65rem, 2vw, 0.85rem);
+    letter-spacing: 0.5em;
+    color: #1e90ff;
+    margin: 0;
+    opacity: 0;
+    transition: opacity 0.6s ease 0.6s;
+}
+
+.nw-loader__content.logo .nw-loader__sub,
+.nw-loader__content.enter .nw-loader__sub {
+    opacity: 0.7;
+}
+
+.nw-loader__enter {
+    margin-top: 24px;
+    background: transparent;
+    border: 1px solid #1e90ff;
+    color: #1e90ff;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    padding: 14px 40px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+}
+
+.nw-loader__enter::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: #1e90ff;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+
+.nw-loader__enter:hover::before {
+    transform: translateX(0);
+}
+
+.nw-loader__enter:hover {
+    color: #02040c;
+}
+
+.nw-loader__enter span {
+    position: relative;
+    z-index: 1;
+}
+
+.nw-loader__enter-line {
+    position: absolute;
+    bottom: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: #00d4ff;
+    animation: expandLine 0.8s ease 0.2s forwards;
+    box-shadow: 0 0 8px #00d4ff;
+}
+
+@keyframes expandLine {
+    to {
+        width: 100%;
+    }
+}
+
+/* Scanline effect */
+.nw-loader__scanline {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(0deg,
+            transparent,
+            transparent 2px,
+            rgba(30, 144, 255, 0.015) 2px,
+            rgba(30, 144, 255, 0.015) 4px);
+    pointer-events: none;
+    z-index: 3;
+}
+
+/* Corner brackets */
+.nw-loader__corner {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    z-index: 4;
+}
+
+.nw-loader__corner--tl {
+    top: 20px;
+    left: 20px;
+    border-top: 1px solid #1e90ff;
+    border-left: 1px solid #1e90ff;
+}
+
+.nw-loader__corner--tr {
+    top: 20px;
+    right: 20px;
+    border-top: 1px solid #1e90ff;
+    border-right: 1px solid #1e90ff;
+}
+
+.nw-loader__corner--bl {
+    bottom: 20px;
+    left: 20px;
+    border-bottom: 1px solid #1e90ff;
+    border-left: 1px solid #1e90ff;
+}
+
+.nw-loader__corner--br {
+    bottom: 20px;
+    right: 20px;
+    border-bottom: 1px solid #1e90ff;
+    border-right: 1px solid #1e90ff;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

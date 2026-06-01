@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import '../styles/oracle-chat.css';
 
 const GEMINI_API_URL =
-    'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
+    'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent';
 
 const SYSTEM_PROMPT = `You are Oracle — Barbara Gordon, the most dangerous information broker in the DC universe. You were Batgirl until the Joker shot you, and you rebuilt yourself as Oracle: a master hacker and the nerve center of the Bat-Family.
 

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import '../styles/review-section.css';
+import { supabase } from '../lib/supabase';
 
 const LABELS = {
     batman:   ['', 'Gotham Disagrees', 'Needs Work', 'Decent', 'Great', 'Outstanding'],
@@ -29,9 +30,14 @@ export default function ReviewSection({ character = 'batman' }) {
     const active = hovered || selected;
     const msg    = selected >= 4 ? thanks.hi : selected >= 3 ? thanks.mid : thanks.lo;
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
         if (!selected) return;
+        await supabase.from('ratings').insert({
+            character: char,
+            rating: selected,
+            feedback: feedback.trim() || null,
+        });
         setSubmitted(true);
     }
 

@@ -1597,3 +1597,22 @@
         padding: 14px 20px;
     }
 }
+
+/* ── Fatson Easter Egg ───────────────────────────────────────────── */
+.rh-fatson-roller {
+    position: fixed;
+    bottom: 80px;
+    left: 0;
+    z-index: 9999;
+    pointer-events: none;
+    animation: rh-fatson-roll 2.8s cubic-bezier(0.4,0,0.6,1) forwards;
+}
+@keyframes rh-fatson-roll {
+    0%   { transform: translateX(-140px) rotate(0deg); }
+    100% { transform: translateX(calc(100vw + 140px)) rotate(720deg); }
+}
+.rh-fatson-svg {
+    width: 120px;
+    height: 130px;
+    filter: drop-shadow(0 4px 16px #cc000088);
+}

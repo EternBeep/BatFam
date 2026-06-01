@@ -295,10 +295,39 @@ function DeathEvent({ event }) {
 // MAIN
 // ─────────────────────────────────────────────────────────
 
+// ── Fatson Easter Egg ─────────────────────────────────────────────────────────
+function FatsonEasterEgg({ active }) {
+    if (!active) return null;
+    return (
+        <div className="rh-fatson-roller">
+            <svg className="rh-fatson-svg" viewBox="0 0 120 130" xmlns="http://www.w3.org/2000/svg" aria-label="Fatson Todd">
+                <ellipse cx="60" cy="75" rx="46" ry="44" fill="#c8a87a" />
+                <path d="M28 72 Q60 85 92 72 Q92 95 60 100 Q28 95 28 72Z" fill="#cc0000" />
+                <ellipse cx="14" cy="82" rx="10" ry="8" fill="#c8a87a" transform="rotate(-20 14 82)" />
+                <ellipse cx="106" cy="82" rx="10" ry="8" fill="#c8a87a" transform="rotate(20 106 82)" />
+                <ellipse cx="44" cy="116" rx="11" ry="9" fill="#555" />
+                <ellipse cx="76" cy="116" rx="11" ry="9" fill="#555" />
+                <ellipse cx="60" cy="42" rx="34" ry="30" fill="#cc0000" />
+                <rect x="30" y="44" width="60" height="11" rx="4" fill="#222" />
+                <ellipse cx="45" cy="28" rx="8" ry="5" fill="rgba(255,255,255,0.15)" transform="rotate(-20 45 28)" />
+                <circle cx="46" cy="49" r="5" fill="#fff" />
+                <circle cx="74" cy="49" r="5" fill="#fff" />
+                <circle cx="47" cy="49" r="2.5" fill="#111" />
+                <circle cx="75" cy="49" r="2.5" fill="#111" />
+                <circle cx="48" cy="48" r="1" fill="#fff" />
+                <circle cx="76" cy="48" r="1" fill="#fff" />
+                <rect x="2" y="86" width="10" height="5" rx="2" fill="#444" transform="rotate(-10 2 86)" />
+                <rect x="108" y="86" width="10" height="5" rx="2" fill="#444" transform="rotate(10 108 86)" />
+            </svg>
+        </div>
+    );
+}
+
 const NAV_ITEMS = ['identity', 'fallen', 'philosophy', 'conflict', 'arsenal', 'rogues', 'legacy'];
 
 export default function RedHoodMain({ onBack }) {
     const [navOpen, setNavOpen] = useState(false);
+    const [fatsonActive, setFatsonActive] = useState(false);
 
     const scrollTo = (id) => {
         document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -342,6 +371,23 @@ export default function RedHoodMain({ onBack }) {
         window.addEventListener('scroll', onScroll, { passive: true });
 
         return () => { revealObs.disconnect(); codeObs.disconnect(); window.removeEventListener('scroll', onScroll); };
+    }, []);
+
+    useEffect(() => {
+        const buf = [];
+        const TARGET = 'fatson';
+        const onKey = (e) => {
+            if (['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)) return;
+            if (e.key.length === 1) buf.push(e.key.toLowerCase());
+            if (buf.length > TARGET.length) buf.shift();
+            if (buf.join('') === TARGET) {
+                buf.length = 0;
+                setFatsonActive(true);
+                setTimeout(() => setFatsonActive(false), 3000);
+            }
+        };
+        window.addEventListener('keydown', onKey);
+        return () => window.removeEventListener('keydown', onKey);
     }, []);
 
     return (
@@ -676,6 +722,8 @@ export default function RedHoodMain({ onBack }) {
 
             {/* ── REVIEW ── */}
             <ReviewSection character="redhood" />
+
+            <FatsonEasterEgg active={fatsonActive} />
 
             {/* ── FOOTER ── */}
             <footer className="rh-footer">

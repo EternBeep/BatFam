@@ -12,6 +12,7 @@ import cover1Img from '../assets/Robin/covers/cover_1.jpg';
 import cover2Img from '../assets/Robin/covers/cover_2.jpg';
 import cover3Img from '../assets/Robin/covers/cover_3.jpg';
 import cover4Img from '../assets/Robin/covers/cover_4.jpg';
+import opFileImg from '../assets/Robin/op_file.jpg';
 
 /* ══════════════════════════════════════════════════════════
    DAMIAN WAYNE — SON OF BATMAN · ROBIN V
@@ -500,7 +501,7 @@ export default function DamianMain({ onBack }) {
                                 <div className="dw-id-photo__corner dw-id-photo__corner--br" />
                                 <div className="dw-id-photo__scan" />
                                 <img
-                                    src="/src/assets/Robin/op_file.jpg"
+                                    src={opFileImg}
                                     alt="Damian Wayne"
                                     className="dw-id-photo__img"
                                 />

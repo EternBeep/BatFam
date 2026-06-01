@@ -10,6 +10,7 @@ import rasImg from '../assets/RedRobin/Villains/ras.jpg';
 import snakeImg from '../assets/RedRobin/Villains/snake.jpg';
 import spidersImg from '../assets/RedRobin/Villains/spiders.jpg';
 import ulyssesImg from '../assets/RedRobin/Villains/ulysses.jpg';
+import timImg from '../assets/RedRobin/tim.jpg';
 
 const STATS = [
     { label: 'Detective Intelligence', value: 99 },
@@ -329,7 +330,7 @@ export default function RedRobinMain({ onBack }) {
                         </div>
                         <div className="rr-dossier__body">
                             <ImageFrame
-                                src="/src/assets/RedRobin/tim.jpg"
+                                src={timImg}
                                 alt="Red Robin profile portrait"
                                 label="Profile portrait"
                                 className="rr-dossier__portrait"

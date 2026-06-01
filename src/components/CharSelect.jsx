@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { images } from '../assets/images';
 import redHoodCover from '../assets/RedHood/cover.jpg';
-import redRobinCover from '../assets/RedRobin/cover.jpg';
+import redRobinChar from '../assets/RedRobin/char.jpg';
 import damianCharImg from '../assets/Robin/charselect.jpg';
 
 const SELECTABLE = ['batman', 'nightwing', 'redhood', 'redrobin', 'damian'];
@@ -135,7 +135,7 @@ export default function CharSelect({ onSelect }) {
 
                 <div className={`cs-card ${focusIndex === 3 ? 'cs-card--focused' : ''}`} id="cs-redrobin" onMouseEnter={() => onCardHover(3)}>
                     <div className="cs-card-frame">
-                        <img src="/src/assets/RedRobin/char.jpg" alt="Red Robin" className="cs-card-img cs-card-img--redrobin" />
+                        <img src={redRobinChar} alt="Red Robin" className="cs-card-img cs-card-img--redrobin" />
                     </div>
                     <div className="cs-card-footer">
                         <h3 className="cs-card-name">Red Robin</h3>

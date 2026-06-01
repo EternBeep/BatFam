@@ -81,14 +81,20 @@ export default function OracleChat() {
                 body: JSON.stringify(body),
             });
             const data = await res.json();
+            if (!res.ok) {
+                const errMsg = data?.error?.message || `HTTP ${res.status}`;
+                setMessages(prev => [...prev, { role: 'oracle', text: `Uplink error: ${errMsg}` }]);
+                setLoading(false);
+                return;
+            }
             const reply =
                 data?.candidates?.[0]?.content?.parts?.[0]?.text ||
                 "Signal lost. No data returned from the network.";
             setMessages(prev => [...prev, { role: 'oracle', text: reply }]);
-        } catch {
+        } catch (err) {
             setMessages(prev => [
                 ...prev,
-                { role: 'oracle', text: "Satellite uplink failed. Check your connection and try again." },
+                { role: 'oracle', text: `Satellite uplink failed: ${err.message}` },
             ]);
         }
 

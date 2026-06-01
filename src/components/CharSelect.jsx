@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { images } from '../assets/images';
+import redHoodCover from '../assets/RedHood/cover.jpg';
 import redRobinCover from '../assets/RedRobin/cover.jpg';
 import damianCharImg from '../assets/Robin/charselect.jpg';
 
@@ -114,7 +115,7 @@ export default function CharSelect({ onSelect }) {
 
                 <div className={`cs-card ${focusIndex === 2 ? 'cs-card--focused' : ''}`} id="cs-redhood" onMouseEnter={() => onCardHover(2)}>
                     <div className="cs-card-frame">
-                        <img src="/src/assets/RedHood/cover.jpg" alt="Red Hood" className="cs-card-img" />
+                        <img src={redHoodCover} alt="Red Hood" className="cs-card-img" />
                     </div>
 
                     <div className="cs-card-footer">

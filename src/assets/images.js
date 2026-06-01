@@ -18,8 +18,8 @@ import nightwing from './Batman/Allies/nightwing.jpg';
 
 import joker from './Batman/Villains/joker.jpg';
 import twoFace from './Batman/Villains/2face.jpg';
-import bane from './Batman/Villains/Bane.jpg';
-import riddler from './Batman/Villains/Riddler.jpg';
+import bane from './Batman/Villains/bane.jpg';
+import riddler from './Batman/Villains/riddler.jpg';
 import scarecrow from './Batman/Villains/scarecrow.jpg';
 import ras from './Batman/Villains/ras.jpg';
 

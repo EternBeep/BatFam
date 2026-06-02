@@ -3,6 +3,7 @@ import './styles/screens.css';
 import Loader from './components/Loader';
 import CharSelect from './components/CharSelect';
 import EasterEggs from './components/EasterEggs';
+import OracleChat from './components/OracleChat';
 
 const BatTransition = lazy(() => import('./components/BatTransition'));
 const MainSite = lazy(() => import('./components/MainSite'));
@@ -52,6 +53,7 @@ export default function App() {
   return (
     <Suspense fallback={null}>
       <EasterEggs />
+      {screen === 'main' && <OracleChat />}
       {screen === 'loader' && (
         <Loader onEnter={() => goTo('charSelect')} />
       )}

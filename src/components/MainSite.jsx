@@ -1035,6 +1035,12 @@ export default function MainSite({ onBack }) {
                     </div>
                     <div className="footer-bottom">
                         <p className="footer-copy">© DC Comics · Batman created 1939 · All rights reserved</p>
+                        <button
+                            className="footer-secrets-link"
+                            onClick={() => window.dispatchEvent(new CustomEvent('open-secrets'))}
+                        >
+                            🦇 Hidden Secrets
+                        </button>
                         <div className="footer-credits">
                             <span>Bob Kane</span><span className="footer-sep">·</span>
                             <span>Bill Finger</span><span className="footer-sep">·</span>

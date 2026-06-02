@@ -762,46 +762,7 @@
 
 /* ── Mobile Secrets Button & Panel ───────────────────────────────── */
 
-/* Button — only visible on touch devices */
-.ee-secrets-btn {
-    display: none;
-}
-
-@media (pointer: coarse) {
-    .ee-secrets-btn {
-        display: flex;
-        align-items: center;
-        gap: 7px;
-        position: fixed;
-        bottom: 24px;
-        left: 20px;
-        z-index: 9990;
-        background: rgba(10, 10, 15, 0.92);
-        border: 1px solid rgba(245, 197, 24, 0.3);
-        border-radius: 30px;
-        padding: 9px 16px 9px 12px;
-        color: #f5c518;
-        font-family: 'Cinzel', serif;
-        font-size: 0.62rem;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        cursor: pointer;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.6), 0 0 12px rgba(245,197,24,0.12);
-        backdrop-filter: blur(8px);
-        animation: ee-secrets-btn-pulse 3s ease-in-out infinite;
-    }
-}
-
-.ee-secrets-btn-bat {
-    width: 22px;
-    height: 10px;
-    filter: drop-shadow(0 0 4px rgba(245,197,24,0.7));
-}
-
-@keyframes ee-secrets-btn-pulse {
-    0%, 100% { box-shadow: 0 4px 20px rgba(0,0,0,0.6), 0 0 12px rgba(245,197,24,0.12); }
-    50%       { box-shadow: 0 4px 20px rgba(0,0,0,0.6), 0 0 22px rgba(245,197,24,0.3); }
-}
+/* Footer "Hidden Secrets" trigger link */
 
 /* Overlay backdrop */
 .ee-secrets-overlay {

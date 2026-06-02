@@ -458,6 +458,13 @@ export default function EasterEggs() {
     // ── Console art ───────────────────────────────────────────────────────────
     useEffect(() => { printConsoleArt(); }, []);
 
+    // ── Footer "Hidden Secrets" link → open panel ─────────────────────────────
+    useEffect(() => {
+        const onOpen = () => setSecretsOpen(true);
+        window.addEventListener('open-secrets', onOpen);
+        return () => window.removeEventListener('open-secrets', onOpen);
+    }, []);
+
     // ── Keyboard word/konami detection ────────────────────────────────────────
     useEffect(() => {
         const KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
@@ -817,18 +824,6 @@ export default function EasterEggs() {
             <BatSignal active={batSignal} />
             <GothamSkyline active={gothamSkyline} />
             <KonamiOverlay active={konamiActive} />
-
-            {/* Mobile-only secrets button */}
-            <button
-                className="ee-secrets-btn"
-                onClick={() => setSecretsOpen(true)}
-                aria-label="View hidden secrets"
-            >
-                <svg viewBox="0 0 60 26" fill="none" className="ee-secrets-btn-bat">
-                    <path d="M30,13 C28,8 20,2 8,4 C14,8 17,11 16,14 C12,12 6,11 0,13 C6,14 11,13 14,16 C10,17 6,18 4,22 C10,18 18,16 22,17 C24,20 26,22 30,26 C34,22 36,20 38,17 C42,16 50,18 56,22 C54,18 50,17 46,16 C49,13 54,14 60,13 C54,11 48,12 44,14 C43,11 46,8 52,4 C40,2 32,8 30,13 Z" fill="#f5c518" />
-                </svg>
-                <span>Secrets</span>
-            </button>
 
             <SecretsPanel open={secretsOpen} onClose={() => setSecretsOpen(false)} />
         </>

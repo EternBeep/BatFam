@@ -703,6 +703,23 @@ footer::after {
     padding: 20px 48px;
 }
 
+.footer-secrets-link {
+    background: none;
+    border: none;
+    font-family: 'Raleway', sans-serif;
+    font-size: .55rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: #2a2a2a;
+    cursor: pointer;
+    transition: color .3s;
+    padding: 0;
+}
+
+.footer-secrets-link:hover {
+    color: rgba(245, 197, 24, .5);
+}
+
 .footer-copy {
     font-size: .58rem;
     letter-spacing: .2em;

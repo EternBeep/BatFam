@@ -760,6 +760,211 @@
     to   { opacity: 1; transform: translateY(0); }
 }
 
+/* ── Mobile Secrets Button & Panel ───────────────────────────────── */
+
+/* Button — only visible on touch devices */
+.ee-secrets-btn {
+    display: none;
+}
+
+@media (pointer: coarse) {
+    .ee-secrets-btn {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        position: fixed;
+        bottom: 24px;
+        left: 20px;
+        z-index: 9990;
+        background: rgba(10, 10, 15, 0.92);
+        border: 1px solid rgba(245, 197, 24, 0.3);
+        border-radius: 30px;
+        padding: 9px 16px 9px 12px;
+        color: #f5c518;
+        font-family: 'Cinzel', serif;
+        font-size: 0.62rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        cursor: pointer;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.6), 0 0 12px rgba(245,197,24,0.12);
+        backdrop-filter: blur(8px);
+        animation: ee-secrets-btn-pulse 3s ease-in-out infinite;
+    }
+}
+
+.ee-secrets-btn-bat {
+    width: 22px;
+    height: 10px;
+    filter: drop-shadow(0 0 4px rgba(245,197,24,0.7));
+}
+
+@keyframes ee-secrets-btn-pulse {
+    0%, 100% { box-shadow: 0 4px 20px rgba(0,0,0,0.6), 0 0 12px rgba(245,197,24,0.12); }
+    50%       { box-shadow: 0 4px 20px rgba(0,0,0,0.6), 0 0 22px rgba(245,197,24,0.3); }
+}
+
+/* Overlay backdrop */
+.ee-secrets-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99995;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    animation: ee-fade-in 0.2s ease both;
+}
+
+/* Panel — slides up from bottom */
+.ee-secrets-panel {
+    width: 100%;
+    max-width: 480px;
+    max-height: 88vh;
+    overflow-y: auto;
+    background: #0a0a0f;
+    border: 1px solid rgba(245, 197, 24, 0.15);
+    border-bottom: none;
+    border-radius: 20px 20px 0 0;
+    padding: 24px 20px 36px;
+    animation: ee-secrets-slide-up 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes ee-secrets-slide-up {
+    from { transform: translateY(100%); opacity: 0.6; }
+    to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* Panel header */
+.ee-secrets-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 10px;
+}
+
+.ee-secrets-bat {
+    width: 32px;
+    height: 14px;
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 6px rgba(245,197,24,0.6));
+}
+
+.ee-secrets-eyebrow {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.52rem;
+    letter-spacing: 0.28em;
+    color: rgba(245,197,24,0.4);
+    text-transform: uppercase;
+    margin: 0 0 4px;
+}
+
+.ee-secrets-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: 0.06em;
+    margin: 0;
+}
+
+.ee-secrets-close {
+    margin-left: auto;
+    background: none;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #555;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 0.85rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: border-color 0.2s, color 0.2s;
+}
+.ee-secrets-close:hover { border-color: #f5c518; color: #f5c518; }
+
+/* Subheading */
+.ee-secrets-sub {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.75rem;
+    line-height: 1.6;
+    color: #555;
+    margin: 0 0 20px;
+    padding-left: 46px;
+}
+
+/* Divider line */
+.ee-secrets-panel::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 2px;
+    background: rgba(245,197,24,0.25);
+    margin: 0 auto 20px;
+    border-radius: 2px;
+}
+
+/* Secrets list */
+.ee-secrets-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.ee-secrets-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 12px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(245,197,24,0.05);
+    transition: background 0.2s;
+}
+
+.ee-secrets-item:active {
+    background: rgba(245,197,24,0.05);
+}
+
+.ee-secrets-item-icon {
+    font-size: 1.4rem;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.ee-secrets-item-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #f5c518;
+    letter-spacing: 0.05em;
+    margin: 0 0 5px;
+}
+
+.ee-secrets-item-desc {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.72rem;
+    line-height: 1.6;
+    color: #666;
+    font-weight: 300;
+    margin: 0;
+}
+
+/* Footer note */
+.ee-secrets-footer {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #333;
+    text-align: center;
+    margin-top: 20px;
+}
+
 /* ── Mobile / Touch Easter Eggs ───────────────────────────────────── */
 
 /* Tap ripple — golden bat-pulse on interactive touch */

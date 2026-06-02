@@ -293,6 +293,73 @@ function KonamiOverlay({ active }) {
     );
 }
 
+// ── Mobile Secrets Panel ──────────────────────────────────────────────────────
+const SECRETS = [
+    {
+        icon: '🪃',
+        title: 'Shake Your Phone',
+        desc: 'Physically shake your device to deploy a batarang storm over Gotham.',
+    },
+    {
+        icon: '🔦',
+        title: 'Long-Press the Hero Screen',
+        desc: 'Hold your finger on the main Batman screen (without scrolling) for ~1 second to light the Bat-Signal.',
+    },
+    {
+        icon: '🌆',
+        title: 'Swipe Right Fast',
+        desc: 'Do a quick horizontal swipe from left to right across the screen. Gotham\'s skyline rises from the dark.',
+    },
+    {
+        icon: '🃏',
+        title: 'Double-Tap a Villain',
+        desc: 'In the Rogues Gallery, double-tap any villain card to instantly unlock their unique easter egg.',
+    },
+    {
+        icon: '🎮',
+        title: '4-Finger Tap',
+        desc: 'Tap the screen with four fingers at the same time to unlock the secret Batcave cheat code.',
+    },
+    {
+        icon: '✨',
+        title: 'Touch Anything',
+        desc: 'Every tap on an interactive element leaves a golden bat-pulse ripple. The Dark Knight is always watching.',
+    },
+];
+
+function SecretsPanel({ open, onClose }) {
+    if (!open) return null;
+    return (
+        <div className="ee-secrets-overlay" onClick={onClose}>
+            <div className="ee-secrets-panel" onClick={e => e.stopPropagation()}>
+                <div className="ee-secrets-header">
+                    <svg className="ee-secrets-bat" viewBox="0 0 60 26" fill="none">
+                        <path d="M30,13 C28,8 20,2 8,4 C14,8 17,11 16,14 C12,12 6,11 0,13 C6,14 11,13 14,16 C10,17 6,18 4,22 C10,18 18,16 22,17 C24,20 26,22 30,26 C34,22 36,20 38,17 C42,16 50,18 56,22 C54,18 50,17 46,16 C49,13 54,14 60,13 C54,11 48,12 44,14 C43,11 46,8 52,4 C40,2 32,8 30,13 Z" fill="#f5c518" />
+                    </svg>
+                    <div>
+                        <p className="ee-secrets-eyebrow">Classified · Bat-Computer</p>
+                        <h2 className="ee-secrets-title">Hidden Secrets</h2>
+                    </div>
+                    <button className="ee-secrets-close" onClick={onClose} aria-label="Close">✕</button>
+                </div>
+                <p className="ee-secrets-sub">Phone-exclusive easter eggs hidden across Gotham. Can you find them all?</p>
+                <div className="ee-secrets-list">
+                    {SECRETS.map((s, i) => (
+                        <div key={i} className="ee-secrets-item">
+                            <span className="ee-secrets-item-icon">{s.icon}</span>
+                            <div>
+                                <p className="ee-secrets-item-title">{s.title}</p>
+                                <p className="ee-secrets-item-desc">{s.desc}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                <p className="ee-secrets-footer">Tap anywhere outside to dismiss</p>
+            </div>
+        </div>
+    );
+}
+
 // ── Phone Ripple (tap easter egg) ─────────────────────────────────────────────
 function TapRipples({ ripples }) {
     return (
@@ -322,6 +389,7 @@ export default function EasterEggs() {
     const [batSignal, setBatSignal] = useState(false);
     const [gothamSkyline, setGothamSkyline] = useState(false);
     const [konamiActive, setKonamiActive] = useState(false);
+    const [secretsOpen, setSecretsOpen] = useState(false);
 
     const keyBuffer = useRef([]);
     const tripleClickRef = useRef({ count: 0, timer: null, x: 0, y: 0 });
@@ -749,6 +817,20 @@ export default function EasterEggs() {
             <BatSignal active={batSignal} />
             <GothamSkyline active={gothamSkyline} />
             <KonamiOverlay active={konamiActive} />
+
+            {/* Mobile-only secrets button */}
+            <button
+                className="ee-secrets-btn"
+                onClick={() => setSecretsOpen(true)}
+                aria-label="View hidden secrets"
+            >
+                <svg viewBox="0 0 60 26" fill="none" className="ee-secrets-btn-bat">
+                    <path d="M30,13 C28,8 20,2 8,4 C14,8 17,11 16,14 C12,12 6,11 0,13 C6,14 11,13 14,16 C10,17 6,18 4,22 C10,18 18,16 22,17 C24,20 26,22 30,26 C34,22 36,20 38,17 C42,16 50,18 56,22 C54,18 50,17 46,16 C49,13 54,14 60,13 C54,11 48,12 44,14 C43,11 46,8 52,4 C40,2 32,8 30,13 Z" fill="#f5c518" />
+                </svg>
+                <span>Secrets</span>
+            </button>
+
+            <SecretsPanel open={secretsOpen} onClose={() => setSecretsOpen(false)} />
         </>
     );
 }

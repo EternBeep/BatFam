@@ -701,7 +701,7 @@
     .gotham-section,
     .batmobile-section,
     .timeline-section {
-        padding: 80px 20px;
+        padding: 60px 16px;
     }
 
     /* Timeline goes single column on mobile */

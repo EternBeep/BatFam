@@ -296,12 +296,15 @@ export default function MainSite({ onBack }) {
     ];
 
     useEffect(() => {
-        // Spotlight cursor
+        const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+
+        // Spotlight cursor — desktop only
         const spotlight = spotlightRef.current;
         const ring = ringRef.current;
         const dot = dotRef.current;
         let spotX = window.innerWidth / 2, spotY = window.innerHeight / 2;
         let mouseX = spotX, mouseY = spotY, lastAngle = 0;
+        let rafId;
 
         const setCursorVisible = (visible) => {
             const opacity = visible ? '1' : '0';
@@ -323,25 +326,26 @@ export default function MainSite({ onBack }) {
         const onDocLeave = (e) => { if (!e.relatedTarget) setCursorVisible(false); };
         const onDocEnter = () => setCursorVisible(true);
 
-        // Hide custom cursor when inside the batmobile iframe (it steals mousemove)
         const iframeWrap = document.querySelector('.batmobile-iframe-wrap');
         const onIframeEnter = () => setCursorVisible(false);
         const onIframeLeave = () => setCursorVisible(true);
-        iframeWrap?.addEventListener('mouseenter', onIframeEnter);
-        iframeWrap?.addEventListener('mouseleave', onIframeLeave);
 
-        let rafId;
-        function animSpot() {
-            spotX += (mouseX - spotX) * 0.08;
-            spotY += (mouseY - spotY) * 0.08;
-            spotlight.style.left = spotX + 'px';
-            spotlight.style.top = spotY + 'px';
+        if (!isTouchDevice) {
+            iframeWrap?.addEventListener('mouseenter', onIframeEnter);
+            iframeWrap?.addEventListener('mouseleave', onIframeLeave);
+
+            function animSpot() {
+                spotX += (mouseX - spotX) * 0.08;
+                spotY += (mouseY - spotY) * 0.08;
+                spotlight.style.left = spotX + 'px';
+                spotlight.style.top = spotY + 'px';
+                rafId = requestAnimationFrame(animSpot);
+            }
             rafId = requestAnimationFrame(animSpot);
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseleave', onDocLeave);
+            document.addEventListener('mouseenter', onDocEnter);
         }
-        rafId = requestAnimationFrame(animSpot);
-        document.addEventListener('mousemove', onMouseMove);
-        document.addEventListener('mouseleave', onDocLeave);
-        document.addEventListener('mouseenter', onDocEnter);
 
         // Wayne reveal
         const container = wayneContainerRef.current;
@@ -378,6 +382,36 @@ export default function MainSite({ onBack }) {
         container.addEventListener('mouseenter', onEnter);
         container.addEventListener('mousemove', onMove);
         container.addEventListener('mouseleave', onLeave);
+
+        // Touch reveal for mobile — finger acts as the spotlight
+        const onTouchStart = (e) => {
+            e.preventDefault();
+            hovered = true;
+            const rect = container.getBoundingClientRect();
+            const t = e.touches[0];
+            cx = t.clientX - rect.left;
+            cy = t.clientY - rect.top;
+            gsap.to(spot, { radius: 130, duration: .4, ease: 'power2.out', onUpdate: () => applyMask(cx, cy, spot.radius) });
+        };
+        const onTouchMove = (e) => {
+            e.preventDefault();
+            const rect = container.getBoundingClientRect();
+            const t = e.touches[0];
+            cx = t.clientX - rect.left;
+            cy = t.clientY - rect.top;
+            applyMask(cx, cy, spot.radius);
+        };
+        const onTouchEnd = () => {
+            hovered = false;
+            gsap.to(spot, {
+                radius: 0, duration: .6, ease: 'power2.inOut',
+                onUpdate: () => applyMask(cx, cy, spot.radius),
+                onComplete: () => { batman.style.webkitMaskImage = 'none'; batman.style.maskImage = 'none'; },
+            });
+        };
+        container.addEventListener('touchstart', onTouchStart, { passive: false });
+        container.addEventListener('touchmove', onTouchMove, { passive: false });
+        container.addEventListener('touchend', onTouchEnd);
 
         // Chronicles horizontal scroll
         const outer = document.querySelector('.chronicles-sticky-outer');
@@ -468,7 +502,7 @@ export default function MainSite({ onBack }) {
         window.addEventListener('scroll', onNavScroll);
 
         return () => {
-            cancelAnimationFrame(rafId);
+            if (rafId) cancelAnimationFrame(rafId);
             document.removeEventListener('mousemove', onMouseMove);
             document.removeEventListener('mouseleave', onDocLeave);
             document.removeEventListener('mouseenter', onDocEnter);
@@ -477,6 +511,9 @@ export default function MainSite({ onBack }) {
             container.removeEventListener('mouseenter', onEnter);
             container.removeEventListener('mousemove', onMove);
             container.removeEventListener('mouseleave', onLeave);
+            container.removeEventListener('touchstart', onTouchStart);
+            container.removeEventListener('touchmove', onTouchMove);
+            container.removeEventListener('touchend', onTouchEnd);
             if (chroniclesScrollHandler) window.removeEventListener('scroll', chroniclesScrollHandler);
             window.removeEventListener('scroll', onNavScroll);
             obs.disconnect();

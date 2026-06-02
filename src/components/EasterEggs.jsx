@@ -16,10 +16,11 @@ function printConsoleArt() {
   ██   %c  I   A M   T H E   N I G H T  %c                                       ██
   ██                                                                          ██
   ██   %c You found the Bat-Computer terminal. Type one of these in the page:   ██
-  ██   → BATMAN  → JOKER  → ALFRED  → GOTHAM  → ROBIN  → RIDDLER             ██
+  ██   → BATMAN  → JOKER  → GOTHAM  → ROBIN  → RIDDLER                      ██
   ██   → Konami Code: ↑↑↓↓←→←→BA                                             ██
-  ██   → Click the bat logo 5×  ·  Triple-click anywhere  ·  Idle 35s        ██
+  ██   → Click the bat logo 5×  ·  Triple-click anywhere                     ██
   ██   → Click villains in the Rogues Gallery (each has a unique secret!)     ██
+  ██   → On mobile: shake, long-press, swipe right for hidden secrets!        ██
   ██   → There are %c 20+ %c easter eggs hidden across Gotham. Find them all.    ██
   ██                                                                          ██
   ██████████████████████████████████████████████████████████████████████████████
@@ -76,6 +77,12 @@ function BatarangRain({ active }) {
             ))}
         </div>
     );
+}
+
+// ── Phone Shake Flash ──────────────────────────────────────────────────────────
+function ShakeFlash({ active }) {
+    if (!active) return null;
+    return <div className="ee-shake-flash" />;
 }
 
 // ── JOKER — HA HA HA ──────────────────────────────────────────────────────────
@@ -243,31 +250,6 @@ function BatSignal({ active }) {
     );
 }
 
-// ── Alfred Modal ──────────────────────────────────────────────────────────────
-function AlfredModal({ active, onClose }) {
-    const messages = [
-        "Yes, Master Bruce. Your tea is ready in the study.",
-        "Shall I prepare the Batmobile, sir?",
-        "I've taken the liberty of pressing your cape.",
-        "Master Bruce, perhaps a night off wouldn't go amiss?",
-        "Your father would be proud, sir.",
-        "The Batcave is fully operational, sir. As always.",
-        "I noticed you've been staring at the Rogues Gallery for some time, sir.",
-    ];
-    const [msg] = useState(() => messages[Math.floor(Math.random() * messages.length)]);
-    if (!active) return null;
-    return (
-        <div className="ee-alfred-overlay" onClick={onClose}>
-            <div className="ee-alfred-modal" onClick={e => e.stopPropagation()}>
-                <div className="ee-alfred-avatar">🎩</div>
-                <p className="ee-alfred-name">Alfred Pennyworth</p>
-                <p className="ee-alfred-message">"{msg}"</p>
-                <button className="ee-alfred-close" onClick={onClose}>Dismiss, Alfred</button>
-            </div>
-        </div>
-    );
-}
-
 // ── Gotham Skyline ────────────────────────────────────────────────────────────
 function GothamSkyline({ active }) {
     if (!active) return null;
@@ -311,13 +293,26 @@ function KonamiOverlay({ active }) {
     );
 }
 
+// ── Phone Ripple (tap easter egg) ─────────────────────────────────────────────
+function TapRipples({ ripples }) {
+    return (
+        <>
+            {ripples.map(r => (
+                <div key={r.id} className="ee-tap-ripple" style={{ left: r.x, top: r.y }} />
+            ))}
+        </>
+    );
+}
+
 // ══════════════════════════════════════════════════════════════════════════════
 // Main Easter Eggs Component
 // ══════════════════════════════════════════════════════════════════════════════
 export default function EasterEggs() {
     const [toasts, setToasts] = useState([]);
     const [batSymbols, setBatSymbols] = useState([]);
+    const [tapRipples, setTapRipples] = useState([]);
     const [batarangRain, setBatarangRain] = useState(false);
+    const [shakeFlash, setShakeFlash] = useState(false);
     const [jokerMode, setJokerMode] = useState(false);
     const [twoFaceMode, setTwoFaceMode] = useState(false);
     const [baneMode, setBaneMode] = useState(false);
@@ -325,19 +320,16 @@ export default function EasterEggs() {
     const [scarecrowMode, setScarecrowMode] = useState(false);
     const [rasMode, setRasMode] = useState(false);
     const [batSignal, setBatSignal] = useState(false);
-    const [alfredVisible, setAlfredVisible] = useState(false);
     const [gothamSkyline, setGothamSkyline] = useState(false);
     const [konamiActive, setKonamiActive] = useState(false);
 
     const keyBuffer = useRef([]);
     const tripleClickRef = useRef({ count: 0, timer: null, x: 0, y: 0 });
-    const idleTimer = useRef(null);
     const logoClickRef = useRef(0);
     const logoClickTimer = useRef(null);
     const toastIdRef = useRef(0);
-    const activeEffects = useRef(new Set());
 
-    // Per-villain click counters: { count, timer }
+    // Per-villain click counters
     const villainClicks = useRef({
         joker:     { count: 0, timer: null, needed: 3 },
         twoface:   { count: 0, timer: null, needed: 2 },
@@ -347,9 +339,13 @@ export default function EasterEggs() {
         ras:       { count: 0, timer: null, needed: 2 },
     });
 
+    // Per-villain double-tap tracker (mobile)
+    const villainDoubleTap = useRef({});
+
     const addToast = useCallback((text, type = 'default', icon = '🦇') => {
         const id = ++toastIdRef.current;
-        setToasts(prev => [...prev.slice(-4), { id, text, type, icon }]);
+        // Keep max 3 toasts at a time
+        setToasts(prev => [...prev.slice(-2), { id, text, type, icon }]);
         setTimeout(() => setToasts(prev => prev.filter(t => t.id !== id)), 5000);
     }, []);
 
@@ -394,27 +390,6 @@ export default function EasterEggs() {
     // ── Console art ───────────────────────────────────────────────────────────
     useEffect(() => { printConsoleArt(); }, []);
 
-    // ── Idle → Alfred ─────────────────────────────────────────────────────────
-    const resetIdleTimer = useCallback(() => {
-        clearTimeout(idleTimer.current);
-        idleTimer.current = setTimeout(() => {
-            if (!activeEffects.current.has('alfred')) {
-                setAlfredVisible(true);
-                activeEffects.current.add('alfred');
-            }
-        }, 35000);
-    }, []);
-
-    useEffect(() => {
-        const events = ['mousemove', 'keydown', 'click', 'scroll', 'touchstart'];
-        events.forEach(e => window.addEventListener(e, resetIdleTimer, { passive: true }));
-        resetIdleTimer();
-        return () => {
-            events.forEach(e => window.removeEventListener(e, resetIdleTimer));
-            clearTimeout(idleTimer.current);
-        };
-    }, [resetIdleTimer]);
-
     // ── Keyboard word/konami detection ────────────────────────────────────────
     useEffect(() => {
         const KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
@@ -429,8 +404,7 @@ export default function EasterEggs() {
             'twoface':  () => { setTwoFaceMode(true); setTimeout(() => setTwoFaceMode(false), 4000); },
             'bane':     () => { setBaneMode(true); addToast('"Gotham, take control of your city." — Bane', 'villain', '💪'); setTimeout(() => setBaneMode(false), 3500); },
             'riddler':  () => { setRiddlerMode(true); setTimeout(() => setRiddlerMode(false), 4500); },
-            'scarecrow':() => { setScarecrowMode(true); addToast('Fear toxin detected in the console!', 'villain', '💀'); setTimeout(() => setScarecrowMode(false), 4000); },
-            'alfred':   () => { setAlfredVisible(true); activeEffects.current.add('alfred'); },
+            'scarecrow':() => { setScarecrowMode(true); setTimeout(() => setScarecrowMode(false), 4000); },
             'gotham':   () => {
                 setGothamSkyline(true);
                 addToast('Gotham City — the city that never sleeps in fear', 'gotham', '🌆');
@@ -453,7 +427,6 @@ export default function EasterEggs() {
 
             const buf = keyBuffer.current;
 
-            // Konami
             if (buf.length >= KONAMI.length) {
                 const tail = buf.slice(-KONAMI.length);
                 if (tail.every((k, i) => k === KONAMI[i])) {
@@ -465,7 +438,6 @@ export default function EasterEggs() {
                 }
             }
 
-            // Words
             const typed = buf.filter(k => k.length === 1).join('').toLowerCase();
             for (const [word, action] of Object.entries(WORDS)) {
                 if (typed.endsWith(word)) {
@@ -517,8 +489,6 @@ export default function EasterEggs() {
                     setBatSignal(true);
                     addToast('🔦 BAT-SIGNAL ACTIVATED!', 'bat', '🔦');
                     setTimeout(() => setBatSignal(false), 5000);
-                } else if (logoClickRef.current === 1) {
-                    addToast(`Click ${5 - logoClickRef.current} more times...`, 'hint', '🦇');
                 }
             }
         };
@@ -526,11 +496,10 @@ export default function EasterEggs() {
         return () => window.removeEventListener('click', onClick);
     }, [addToast]);
 
-    // ── Villain card clicks — each villain has unique action + click count ────
+    // ── Villain card clicks — desktop (click counting) ────────────────────────
     useEffect(() => {
         const actions = VILLAIN_ACTIONS();
 
-        // Hint messages shown on first click before threshold
         const hints = {
             joker:     (n, needed) => `🃏 ${needed - n} more clicks to unleash the Joker...`,
             twoface:   (n, needed) => `🪙 ${needed - n} more — the coin is spinning...`,
@@ -564,30 +533,6 @@ export default function EasterEggs() {
         return () => window.removeEventListener('click', onClick);
     }, [addToast, VILLAIN_ACTIONS]);
 
-    // ── Copy → secret message ─────────────────────────────────────────────────
-    useEffect(() => {
-        const onCopy = () => addToast('"I am the night. And I am watching." — Batman', 'bat', '🌑');
-        document.addEventListener('copy', onCopy);
-        return () => document.removeEventListener('copy', onCopy);
-    }, [addToast]);
-
-    // ── Right-click → Batman quote ────────────────────────────────────────────
-    useEffect(() => {
-        const msgs = [
-            'The shadows hide many secrets, Detective.',
-            'You are being watched.',
-            'Gotham never sleeps. Neither do I.',
-            'Find all the easter eggs. I dare you.',
-        ];
-        let idx = 0;
-        const onContext = (e) => {
-            e.preventDefault();
-            addToast(msgs[idx++ % msgs.length], 'default', '🌑');
-        };
-        window.addEventListener('contextmenu', onContext);
-        return () => window.removeEventListener('contextmenu', onContext);
-    }, [addToast]);
-
     // ── Scroll to bottom ──────────────────────────────────────────────────────
     useEffect(() => {
         let triggered = false;
@@ -603,18 +548,197 @@ export default function EasterEggs() {
         return () => window.removeEventListener('scroll', onScroll);
     }, [addToast]);
 
-    // ── Hint toast after 8s ───────────────────────────────────────────────────
+    // ══════════════════════════════════════════════════════════════════════════
+    // MOBILE / PHONE EASTER EGGS
+    // ══════════════════════════════════════════════════════════════════════════
+
+    // ── Shake detection → Batarang Rain ──────────────────────────────────────
     useEffect(() => {
-        const t = setTimeout(() => {
-            addToast('💡 20+ easter eggs hidden in Gotham — try clicking the Rogues Gallery!', 'hint', '💡');
-        }, 8000);
-        return () => clearTimeout(t);
+        const isMobile = window.matchMedia('(pointer: coarse)').matches;
+        if (!isMobile) return;
+
+        let lastShakeTime = 0;
+        let lastAcc = { x: 0, y: 0, z: 0 };
+
+        const onMotion = (e) => {
+            const acc = e.accelerationIncludingGravity;
+            if (!acc) return;
+            const dx = Math.abs((acc.x || 0) - lastAcc.x);
+            const dy = Math.abs((acc.y || 0) - lastAcc.y);
+            const dz = Math.abs((acc.z || 0) - lastAcc.z);
+            lastAcc = { x: acc.x || 0, y: acc.y || 0, z: acc.z || 0 };
+            const total = dx + dy + dz;
+            const now = Date.now();
+            if (total > 30 && now - lastShakeTime > 4000) {
+                lastShakeTime = now;
+                setShakeFlash(true);
+                setBatarangRain(true);
+                addToast('Gotham trembles! Batarangs deployed.', 'bat', '🪃');
+                setTimeout(() => { setBatarangRain(false); setShakeFlash(false); }, 3000);
+            }
+        };
+
+        const setup = () => {
+            if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') {
+                // iOS 13+ requires explicit permission on user gesture
+                const requestOnce = async () => {
+                    try {
+                        const perm = await DeviceMotionEvent.requestPermission();
+                        if (perm === 'granted') window.addEventListener('devicemotion', onMotion);
+                    } catch { /* permission denied */ }
+                    window.removeEventListener('touchstart', requestOnce);
+                };
+                window.addEventListener('touchstart', requestOnce, { once: true });
+            } else {
+                window.addEventListener('devicemotion', onMotion);
+            }
+        };
+
+        setup();
+        return () => window.removeEventListener('devicemotion', onMotion);
+    }, [addToast]);
+
+    // ── Long-press on hero → Bat-Signal ──────────────────────────────────────
+    useEffect(() => {
+        const isMobile = window.matchMedia('(pointer: coarse)').matches;
+        if (!isMobile) return;
+
+        let longPressTimer = null;
+        let moved = false;
+
+        const onTouchStart = (e) => {
+            const el = e.target;
+            if (!el.closest('.hero')) return;
+            moved = false;
+            longPressTimer = setTimeout(() => {
+                if (moved) return;
+                setBatSignal(true);
+                addToast('The signal lights Gotham\'s sky.', 'bat', '🔦');
+                setTimeout(() => setBatSignal(false), 5000);
+            }, 700);
+        };
+        const onTouchMove = () => { moved = true; clearTimeout(longPressTimer); };
+        const onTouchEnd = () => clearTimeout(longPressTimer);
+
+        window.addEventListener('touchstart', onTouchStart, { passive: true });
+        window.addEventListener('touchmove', onTouchMove, { passive: true });
+        window.addEventListener('touchend', onTouchEnd);
+        return () => {
+            window.removeEventListener('touchstart', onTouchStart);
+            window.removeEventListener('touchmove', onTouchMove);
+            window.removeEventListener('touchend', onTouchEnd);
+        };
+    }, [addToast]);
+
+    // ── Swipe right fast → Gotham Skyline ────────────────────────────────────
+    useEffect(() => {
+        const isMobile = window.matchMedia('(pointer: coarse)').matches;
+        if (!isMobile) return;
+
+        let swipeStartX = 0, swipeStartY = 0, swipeStartTime = 0;
+        let lastSkylineTime = 0;
+
+        const onTouchStart = (e) => {
+            swipeStartX = e.touches[0].clientX;
+            swipeStartY = e.touches[0].clientY;
+            swipeStartTime = Date.now();
+        };
+        const onTouchEnd = (e) => {
+            const dx = e.changedTouches[0].clientX - swipeStartX;
+            const dy = e.changedTouches[0].clientY - swipeStartY;
+            const dt = Date.now() - swipeStartTime;
+            const now = Date.now();
+            if (
+                dx > 100 &&
+                Math.abs(dy) < 60 &&
+                dt < 300 &&
+                now - lastSkylineTime > 6000
+            ) {
+                lastSkylineTime = now;
+                setGothamSkyline(true);
+                addToast('Gotham rises from the shadows.', 'gotham', '🌆');
+                setTimeout(() => setGothamSkyline(false), 4000);
+            }
+        };
+
+        window.addEventListener('touchstart', onTouchStart, { passive: true });
+        window.addEventListener('touchend', onTouchEnd);
+        return () => {
+            window.removeEventListener('touchstart', onTouchStart);
+            window.removeEventListener('touchend', onTouchEnd);
+        };
+    }, [addToast]);
+
+    // ── Double-tap villain → instant trigger (mobile) ─────────────────────────
+    useEffect(() => {
+        const isMobile = window.matchMedia('(pointer: coarse)').matches;
+        if (!isMobile) return;
+
+        const actions = VILLAIN_ACTIONS();
+        const lastTap = {};
+
+        const onTouchEnd = (e) => {
+            const el = e.target;
+            for (const villain of Object.keys(villainClicks.current)) {
+                if (el.closest(`[data-villain="${villain}"]`)) {
+                    const now = Date.now();
+                    if (lastTap[villain] && now - lastTap[villain] < 400) {
+                        delete lastTap[villain];
+                        actions[villain]?.();
+                    } else {
+                        lastTap[villain] = now;
+                    }
+                    break;
+                }
+            }
+        };
+
+        window.addEventListener('touchend', onTouchEnd);
+        return () => window.removeEventListener('touchend', onTouchEnd);
+    }, [VILLAIN_ACTIONS]);
+
+    // ── Tap ripples (mobile touch feedback) ───────────────────────────────────
+    useEffect(() => {
+        const isMobile = window.matchMedia('(pointer: coarse)').matches;
+        if (!isMobile) return;
+
+        const onTouchStart = (e) => {
+            const touch = e.touches[0];
+            const el = document.elementFromPoint(touch.clientX, touch.clientY);
+            // Only ripple on interactive-looking areas, not scrolling
+            if (!el?.closest('button, [data-villain], .rogue-card, .ally-card, .arsenal-item, nav')) return;
+            const id = Date.now() + Math.random();
+            setTapRipples(prev => [...prev.slice(-3), { id, x: touch.clientX - 20, y: touch.clientY - 20 }]);
+            setTimeout(() => setTapRipples(prev => prev.filter(r => r.id !== id)), 700);
+        };
+
+        window.addEventListener('touchstart', onTouchStart, { passive: true });
+        return () => window.removeEventListener('touchstart', onTouchStart);
+    }, []);
+
+    // ── 5-finger tap → Konami unlock (mobile cheat) ───────────────────────────
+    useEffect(() => {
+        const isMobile = window.matchMedia('(pointer: coarse)').matches;
+        if (!isMobile) return;
+
+        const onTouchStart = (e) => {
+            if (e.touches.length >= 4) {
+                setKonamiActive(true);
+                addToast('🎮 Secret touch code! Welcome to the Batcave.', 'konami', '🎮');
+                setTimeout(() => setKonamiActive(false), 4000);
+            }
+        };
+
+        window.addEventListener('touchstart', onTouchStart, { passive: true });
+        return () => window.removeEventListener('touchstart', onTouchStart);
     }, [addToast]);
 
     return (
         <>
             <Toast messages={toasts} onRemove={removeToast} />
             <BatSymbols symbols={batSymbols} />
+            <TapRipples ripples={tapRipples} />
+            <ShakeFlash active={shakeFlash} />
             <BatarangRain active={batarangRain} />
             <JokerMode active={jokerMode} />
             <TwoFaceMode active={twoFaceMode} />
@@ -623,7 +747,6 @@ export default function EasterEggs() {
             <ScarecrowMode active={scarecrowMode} />
             <RasMode active={rasMode} />
             <BatSignal active={batSignal} />
-            <AlfredModal active={alfredVisible} onClose={() => { setAlfredVisible(false); activeEffects.current.delete('alfred'); }} />
             <GothamSkyline active={gothamSkyline} />
             <KonamiOverlay active={konamiActive} />
         </>

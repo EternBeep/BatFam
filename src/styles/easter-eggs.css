@@ -241,70 +241,6 @@
     margin: 0;
 }
 
-/* ── Alfred Modal ─────────────────────────────────────────────────── */
-.ee-alfred-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 99996;
-    background: rgba(0,0,0,0.7);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    animation: ee-fade-in 0.3s ease both;
-    backdrop-filter: blur(4px);
-}
-
-.ee-alfred-modal {
-    background: #0e0e14;
-    border: 1px solid #333;
-    border-top: 2px solid #f5c518;
-    padding: 40px 48px;
-    max-width: 460px;
-    width: 90%;
-    text-align: center;
-    box-shadow: 0 20px 80px rgba(0,0,0,0.9);
-    animation: ee-slide-up 0.4s cubic-bezier(0.16,1,0.3,1) both;
-}
-
-.ee-alfred-avatar {
-    font-size: 3.5rem;
-    margin-bottom: 12px;
-}
-
-.ee-alfred-name {
-    font-family: 'Cinzel', serif;
-    font-size: 0.75rem;
-    letter-spacing: 0.3em;
-    color: #f5c518;
-    margin: 0 0 16px;
-    text-transform: uppercase;
-}
-
-.ee-alfred-message {
-    font-family: 'Raleway', sans-serif;
-    font-size: 1.05rem;
-    color: #ccc;
-    line-height: 1.7;
-    margin: 0 0 28px;
-    font-style: italic;
-}
-
-.ee-alfred-close {
-    background: none;
-    border: 1px solid #333;
-    color: #777;
-    padding: 8px 24px;
-    font-family: 'Raleway', sans-serif;
-    font-size: 0.7rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-.ee-alfred-close:hover {
-    border-color: #f5c518;
-    color: #f5c518;
-}
 
 /* ── Gotham Skyline ───────────────────────────────────────────────── */
 .ee-gotham-skyline {
@@ -822,4 +758,68 @@
 @keyframes ee-slide-up {
     from { opacity: 0; transform: translateY(30px); }
     to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Mobile / Touch Easter Eggs ───────────────────────────────────── */
+
+/* Tap ripple — golden bat-pulse on interactive touch */
+.ee-tap-ripple {
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid rgba(245, 197, 24, 0.7);
+    pointer-events: none;
+    z-index: 99998;
+    animation: ee-tap-ring 0.7s ease-out forwards;
+}
+
+@keyframes ee-tap-ring {
+    0%   { transform: scale(0.4); opacity: 0.9; }
+    100% { transform: scale(2.8); opacity: 0; }
+}
+
+/* Shake flash — brief golden screen strobe */
+.ee-shake-flash {
+    position: fixed;
+    inset: 0;
+    z-index: 99993;
+    pointer-events: none;
+    background: rgba(245, 197, 24, 0.08);
+    animation: ee-shake-strobe 0.4s ease-out forwards;
+}
+
+@keyframes ee-shake-strobe {
+    0%   { opacity: 1; }
+    30%  { opacity: 0.6; }
+    60%  { opacity: 0.3; }
+    100% { opacity: 0; }
+}
+
+/* Reduce heavy overlay blur on mobile for perf */
+@media (pointer: coarse) {
+    .ee-toast-container {
+        bottom: 16px;
+        right: 12px;
+        left: 12px;
+        max-width: none;
+    }
+
+    .ee-toast {
+        max-width: none;
+        font-size: 0.74rem;
+    }
+
+    /* Overlays: remove backdrop-filter on mobile (too expensive) */
+    .ee-scarecrow-overlay,
+    .ee-bane-overlay,
+    .ee-ras-overlay {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+
+    /* Reduce question mark count on mobile — 30 DOM nodes is heavy */
+    .ee-riddler-q:nth-child(n+16) {
+        display: none;
+    }
 }

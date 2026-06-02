@@ -246,8 +246,8 @@ nav {
     }
 }
 
-/* ── MOBILE CURSOR — hide custom cursor elements on small screens ── */
-@media (max-width: 900px) {
+/* ── MOBILE CURSOR — hide custom cursor on touch/small screens ── */
+@media (max-width: 900px), (pointer: coarse) {
     body {
         cursor: auto;
     }
@@ -256,6 +256,27 @@ nav {
     #bat-cursor-dot,
     #bat-cursor-ring {
         display: none !important;
+    }
+
+    /* Restore pointer cursor on all interactive elements */
+    button, a, [role="button"] {
+        cursor: pointer;
+    }
+}
+
+/* ── MOBILE PERFORMANCE — reduce costly paint ops on small screens ── */
+@media (pointer: coarse) {
+    /* Disable expensive box-shadow animations on mobile */
+    .reveal {
+        transition: opacity .25s ease-out, transform .25s ease-out;
+    }
+
+    /* Respect OS-level reduce motion preference */
+    @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+            animation-duration: .01ms !important;
+            transition-duration: .01ms !important;
+        }
     }
 }
 

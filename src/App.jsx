@@ -67,7 +67,6 @@ export default function App() {
         />
       )}
 
-      {/* Batman flow */}
       {screen === 'transition' && character === 'batman' && (
         <BatTransition onDone={() => goTo('main')} />
       )}
@@ -75,7 +74,6 @@ export default function App() {
         <MainSite onBack={() => goTo('charSelect', null)} />
       )}
 
-      {/* Nightwing flow */}
       {screen === 'transition' && character === 'nightwing' && (
         <NightwingTransition onDone={() => goTo('main')} />
       )}
@@ -83,7 +81,6 @@ export default function App() {
         <NightwingMain onBack={() => goTo('charSelect', null)} />
       )}
 
-      {/* Red Hood flow */}
       {screen === 'transition' && character === 'redhood' && (
         <RedHoodTransition onDone={() => goTo('main')} />
       )}
@@ -91,7 +88,6 @@ export default function App() {
         <RedHoodMain onBack={() => goTo('charSelect', null)} />
       )}
 
-      {/* Red Robin flow */}
       {screen === 'transition' && character === 'redrobin' && (
         <RedRobinTransition onDone={() => goTo('main')} />
       )}
@@ -99,7 +95,6 @@ export default function App() {
         <RedRobinMain onBack={() => goTo('charSelect', null)} />
       )}
 
-      {/* Damian Wayne flow */}
       {screen === 'transition' && character === 'damian' && (
         <DamianTransition onDone={() => goTo('main')} />
       )}

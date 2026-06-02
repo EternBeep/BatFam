@@ -394,7 +394,6 @@ export default function RedHoodMain({ onBack }) {
         <div className="rh-main">
             <CrosshairCursor />
 
-            {/* ── NAV ── */}
             <nav className="rh-nav" style={{ transition: 'transform 0.2s ease, opacity 0.2s ease' }}>
                 <div className="rh-nav__logo">
                     <svg viewBox="0 0 80 80" width="28" aria-hidden="true">
@@ -421,7 +420,6 @@ export default function RedHoodMain({ onBack }) {
                 </button>
             </nav>
 
-            {/* ── HERO ── */}
             <section className="rh-hero">
                 <div className="rh-hero__bg-bleed" />
                 <div className="rh-hero__bg-vignette" />
@@ -476,7 +474,6 @@ export default function RedHoodMain({ onBack }) {
                 </div>
             </section>
 
-            {/* ── 01 IDENTITY ── */}
             <section id="identity">
                 <div className="rh-section rh-reveal">
                     <div className="rh-section__header">
@@ -523,7 +520,6 @@ export default function RedHoodMain({ onBack }) {
                 </div>
             </section>
 
-            {/* ── 02 TORTURE & DEATH ── */}
             <section id="fallen" className="rh-death">
                 <div className="rh-death__stain" />
                 <div className="rh-death__inner">
@@ -569,7 +565,6 @@ export default function RedHoodMain({ onBack }) {
                 </div>
             </section>
 
-            {/* ── 03 PHILOSOPHY ── */}
             <section id="philosophy" className="rh-philosophy">
                 <div className="rh-section">
                     <div className="rh-section__header rh-reveal">
@@ -592,7 +587,6 @@ export default function RedHoodMain({ onBack }) {
                 </div>
             </section>
 
-            {/* ── 04 BATMAN CONFLICT ── */}
             <section id="conflict" className="rh-batman">
                 <div className="rh-batman__inner">
                     <div className="rh-reveal">
@@ -629,7 +623,6 @@ export default function RedHoodMain({ onBack }) {
                 </div>
             </section>
 
-            {/* ── 05 ABILITIES ── */}
             <section id="abilities" className="rh-abilities">
                 <div className="rh-section">
                     <div className="rh-section__header rh-reveal">
@@ -652,7 +645,6 @@ export default function RedHoodMain({ onBack }) {
                 </div>
             </section>
 
-            {/* ── 06 ARSENAL ── */}
             <section id="arsenal">
                 <div className="rh-section rh-reveal">
                     <div className="rh-section__header">
@@ -712,7 +704,6 @@ export default function RedHoodMain({ onBack }) {
                 </div>
             </section>
 
-            {/* ── CREED ── */}
             <section id="creed" className="rh-creed">
                 <blockquote>
                     &ldquo;I&apos;m not letting you walk away from this. I&apos;m not the Batman. I&apos;m not bound by your rules. You killed me once. That&apos;s the only time anyone gets to do that.&rdquo;
@@ -720,12 +711,10 @@ export default function RedHoodMain({ onBack }) {
                 </blockquote>
             </section>
 
-            {/* ── REVIEW ── */}
             <ReviewSection character="redhood" />
 
             <FatsonEasterEgg active={fatsonActive} />
 
-            {/* ── FOOTER ── */}
             <footer className="rh-footer">
                 <div>
                     <div className="rh-footer__logo">&#9861; RED HOOD</div>

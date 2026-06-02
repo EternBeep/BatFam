@@ -368,7 +368,6 @@ export default function NightwingMain({ onBack }) {
         <div className="nw-main">
             <EscrimaCursor />
 
-            {/* ── NAV ── */}
             <nav className="nw-nav">
                 <div className="nw-nav__logo">
                     <svg viewBox="0 0 80 40" width="60">
@@ -403,7 +402,6 @@ export default function NightwingMain({ onBack }) {
                 </button>
             </nav>
 
-            {/* ── HERO ── */}
             <section className="nw-hero" id="hero">
                 <div className="nw-hero__grid">
                     {Array.from({ length: 20 }).map((_, i) => (
@@ -449,7 +447,6 @@ export default function NightwingMain({ onBack }) {
                 </div>
             </section>
 
-            {/* ── PROFILE ── */}
             <section className="nw-section nw-profile" id="profile">
                 <div className="nw-section__header">
                     <div className="nw-section__num">01</div>
@@ -536,7 +533,6 @@ export default function NightwingMain({ onBack }) {
                 </div>
             </section>
 
-            {/* ── ARSENAL ── */}
             <section className="nw-section nw-arsenal" id="arsenal">
                 <div className="nw-section__header">
                     <div className="nw-section__num">03</div>
@@ -556,7 +552,6 @@ export default function NightwingMain({ onBack }) {
                 </div>
             </section>
 
-            {/* ── MISSIONS ── */}
             <section className="nw-section nw-missions" id="missions">
                 <div className="nw-section__header">
                     <div className="nw-section__num">04</div>
@@ -597,7 +592,6 @@ export default function NightwingMain({ onBack }) {
                 )}
             </section>
 
-            {/* ── TRAINING PROTOCOLS ── */}
             <section className="nw-section nw-training" id="training">
                 <div className="nw-section__header">
                     <div className="nw-section__num">05</div>
@@ -632,7 +626,6 @@ export default function NightwingMain({ onBack }) {
                 </div>
             </section>
 
-            {/* ── SUIT EVOLUTION ── */}
             <section className="nw-section nw-suits" id="suits">
                 <div className="nw-section__header">
                     <div className="nw-section__num">06</div>
@@ -660,7 +653,6 @@ export default function NightwingMain({ onBack }) {
                 </div>
             </section>
 
-            {/* ── COMIC RUNS ── */}
             <section className="nw-section nw-runs" id="runs">
                 <div className="nw-section__header">
                     <div className="nw-section__num">07</div>
@@ -688,7 +680,6 @@ export default function NightwingMain({ onBack }) {
                 </div>
             </section>
 
-            {/* ── ROGUES GALLERY ── */}
             <section className="nw-section nw-rogues" id="rogues">
                 <div className="nw-section__header">
                     <div className="nw-section__num">08</div>
@@ -731,7 +722,6 @@ export default function NightwingMain({ onBack }) {
                 </div>
             </section>
 
-            {/* ── LEGACY ── */}
             <section className="nw-section nw-legacy" id="legacy">
                 <div className="nw-section__header">
                     <div className="nw-section__num">09</div>
@@ -759,10 +749,8 @@ export default function NightwingMain({ onBack }) {
                 </div>
             </section>
 
-            {/* ── REVIEW ── */}
             <ReviewSection character="nightwing" />
 
-            {/* ── FOOTER ── */}
             <footer className="nw-footer">
                 <div className="nw-footer__symbol">
                     <svg viewBox="0 0 80 40" width="50">

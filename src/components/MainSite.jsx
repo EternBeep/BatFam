@@ -531,7 +531,6 @@ export default function MainSite({ onBack }) {
                 <path d="M30,13 C29,15 28,17 30,19 C32,17 31,15 30,13 Z" fill="#d4a017" />
             </svg>
 
-            {/* ── NAV ── */}
             <nav>
                 <div className="nav-logo">⬡ Batman</div>
                 <div className={`nav-links${navOpen ? ' open' : ''}`}>
@@ -564,7 +563,6 @@ export default function MainSite({ onBack }) {
                 </div>
             </nav>
 
-            {/* ── HERO ── */}
             <section className="hero">
                 <div className="hero-bg-glow"></div>
                 <div className="hero-logo-bg">
@@ -581,7 +579,6 @@ export default function MainSite({ onBack }) {
                 </div>
             </section>
 
-            {/* ── CHRONICLES ── */}
             <section id="chronicles" className="chronicles-section">
                 <div className="chronicles-header">
                     <p className="section-eyebrow">The Legend</p>
@@ -658,7 +655,6 @@ export default function MainSite({ onBack }) {
                 </div>
             </section>
 
-            {/* ── IDENTITY ── */}
             <section id="identity" className="identity-section">
                 <div className="wayne-reveal-container" ref={wayneContainerRef}>
                     <div className="wayne-glow"></div>
@@ -682,7 +678,6 @@ export default function MainSite({ onBack }) {
                 </div>
             </section>
 
-            {/* ── THE CODE ── */}
             <section id="the-code" className="code-section">
                 <div className="code-inner">
                     <div className="code-header">
@@ -710,7 +705,6 @@ export default function MainSite({ onBack }) {
                 </div>
             </section>
 
-            {/* ── PROFILE ── */}
             <section id="profile" className="profile-section">
                 <div className="profile-inner">
                     <p className="section-eyebrow" style={{ textAlign: 'center' }}>Dossier</p>
@@ -799,7 +793,6 @@ export default function MainSite({ onBack }) {
                 </div>
             </section>
 
-            {/* ── ROGUES ── */}
             <section id="rogues" className="rogues-section">
                 <div className="rogues-inner">
                     <div className="rogues-header">
@@ -836,7 +829,6 @@ export default function MainSite({ onBack }) {
                 </div>
             </section>
 
-            {/* ── ALLIES ── */}
             <section id="allies" className="allies-section">
                 <div className="allies-inner">
                     <div className="allies-header">
@@ -908,7 +900,6 @@ export default function MainSite({ onBack }) {
                 </div>
             </section>
 
-            {/* ── ORIGIN ── */}
             <section id="origin" className="comic-section">
                 <div className="comic-inner">
                     <div className="comic-title-block">
@@ -976,7 +967,6 @@ export default function MainSite({ onBack }) {
                 </div>
             </section>
 
-            {/* ── QUOTE ── */}
             <section id="quote" className="quote-section">
                 <blockquote>
                     "It's not who I am underneath, but what I do that defines me."
@@ -984,10 +974,8 @@ export default function MainSite({ onBack }) {
                 </blockquote>
             </section>
 
-            {/* ── REVIEW ── */}
             <ReviewSection character="batman" />
 
-            {/* ── FOOTER ── */}
             <footer>
                 <div className="footer-inner">
                     <div className="footer-top">

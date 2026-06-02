@@ -79,7 +79,6 @@ export default function NightwingLoader({ onEnter }) {
         };
     }, []);
 
-    // glitch effect
     useEffect(() => {
         const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%';
         const original = 'NIGHTWING';

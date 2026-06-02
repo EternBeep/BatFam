@@ -65,7 +65,6 @@ export default function ReviewSection({ character = 'batman' }) {
                     </div>
                 ) : (
                     <form className="rv-form" onSubmit={handleSubmit}>
-                        {/* ── Stars ── */}
                         <div className="rv-stars-wrap">
                             {[1,2,3,4,5].map(s => (
                                 <button
@@ -83,7 +82,6 @@ export default function ReviewSection({ character = 'batman' }) {
                             )}
                         </div>
 
-                        {/* ── Feedback box ── */}
                         <div className="rv-textarea-wrap">
                             <textarea
                                 className="rv-textarea"

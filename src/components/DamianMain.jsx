@@ -579,7 +579,6 @@ export default function DamianMain({ onBack }) {
                 </div>
             </section>
 
-            {/* ── 02 TRAINING ── */}
             <section id="training">
                 <div className="dw-wrap dw-rv">
                     <div className="dw-sh">
@@ -685,7 +684,6 @@ export default function DamianMain({ onBack }) {
                 </div>
             </section>
 
-            {/* ── 03 CODE ── */}
             <section id="code" className="dw-scroll-section">
                 <div className="dw-wrap dw-rv">
                     <div className="dw-sh">
@@ -716,7 +714,6 @@ export default function DamianMain({ onBack }) {
                 </div>
             </section>
 
-            {/* ── 04 ARSENAL ── */}
             <section id="arsenal">
                 <div className="dw-wrap dw-rv">
                     <div className="dw-sh">
@@ -738,7 +735,6 @@ export default function DamianMain({ onBack }) {
                 </div>
             </section>
 
-            {/* ── 05 MISSIONS ── */}
             <section id="missions">
                 <div className="dw-wrap dw-rv">
                     <div className="dw-sh">
@@ -769,7 +765,6 @@ export default function DamianMain({ onBack }) {
                 </div>
             </section>
 
-            {/* ── 06 ROGUES ── */}
             <section id="rogues" className="dw-targets-section">
                 <div className="dw-wrap">
                     <div className="dw-sh dw-rv">
@@ -843,7 +838,6 @@ export default function DamianMain({ onBack }) {
                                     <div className="dw-cover-card__img-scan" />
                                     <div className="dw-cover-card__stamp">{c.stamp}</div>
                                 </div>
-                                {/* Info */}
                                 <div className="dw-cover-card__info">
                                     <div className="dw-cover-card__issue">{c.issue} · {c.year}</div>
                                     <div className="dw-cover-card__title">{c.title}</div>
@@ -859,7 +853,6 @@ export default function DamianMain({ onBack }) {
                 </div>
             </section>
 
-            {/* ── 07 LEGACY ── */}
             <section id="legacy">
                 <div className="dw-wrap dw-rv">
                     <div className="dw-sh">
@@ -884,7 +877,6 @@ export default function DamianMain({ onBack }) {
                 </div>
             </section>
 
-            {/* ── CREED ── */}
             <section className="dw-creed">
                 <div className="dw-creed__rule" />
                 <blockquote>
@@ -894,10 +886,8 @@ export default function DamianMain({ onBack }) {
                 <div className="dw-creed__rule" />
             </section>
 
-            {/* ── REVIEW ── */}
             <ReviewSection character="damian" />
 
-            {/* ── FOOTER ── */}
             <footer className="dw-footer">
                 <div>
                     <div className="dw-footer__logo">✦ DAMIAN WAYNE</div>

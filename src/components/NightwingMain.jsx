@@ -380,10 +380,15 @@ export default function NightwingMain({ onBack }) {
                 </div>
                 <div className={`nw-nav__links ${navOpen ? 'open' : ''}`}>
                     {['profile', 'origin', 'arsenal', 'missions', 'training', 'suits', 'runs', 'rogues', 'legacy'].map(s => (
-                        <button key={s} onClick={() => scrollTo(s)} className="nw-nav__link">
+                        <button key={s} onClick={() => { scrollTo(s); setNavOpen(false); }} className="nw-nav__link">
                             {s.toUpperCase()}
                         </button>
                     ))}
+                    {onBack && (
+                        <button className="nw-nav__link nw-nav__link--back" onClick={onBack}>
+                            ← CHANGE GUARDIAN
+                        </button>
+                    )}
                 </div>
                 {onBack && (
                     <button className="nw-nav__back" onClick={onBack}>

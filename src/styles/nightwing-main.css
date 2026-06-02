@@ -140,6 +140,7 @@
     gap: 5px;
     background: none;
     border: none;
+    cursor: pointer;
 }
 
 .nw-nav__toggle span {
@@ -147,6 +148,15 @@
     width: 22px;
     height: 1px;
     background: var(--nw-blue);
+    transition: transform .3s, opacity .3s;
+}
+
+.nw-nav__link--back {
+    margin-top: 8px;
+    color: rgba(30, 144, 255, 0.5) !important;
+    border-top: 1px solid rgba(30, 144, 255, 0.08);
+    padding-top: 14px !important;
+    font-size: 0.62rem;
 }
 
 /* ─── HERO ───────────────────────────────────── */
@@ -1263,18 +1273,97 @@
 
 /* ─── RESPONSIVE ──────────────────────────────── */
 @media (max-width: 900px) {
-    .nw-hero {
-        flex-direction: column;
-        padding-top: 100px;
+    /* Nav */
+    .nw-nav {
+        padding: 14px 16px;
     }
 
+    /* Hide CHANGE GUARDIAN from nav on mobile — it's in the footer */
+    .nw-nav__back {
+        display: none;
+    }
+
+    .nw-nav__links {
+        display: none;
+    }
+
+    .nw-nav__links.open {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 56px;
+        left: 0;
+        right: 0;
+        background: rgba(2, 4, 12, 0.98);
+        padding: 16px 20px 20px;
+        border-bottom: 1px solid var(--nw-dim);
+        gap: 0;
+        z-index: 49;
+    }
+
+    .nw-nav__links.open .nw-nav__link {
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(30, 144, 255, 0.06);
+        font-size: 0.7rem;
+    }
+
+    .nw-nav__toggle {
+        display: flex;
+    }
+
+    /* Hero — image-first layout on mobile */
+    .nw-hero {
+        flex-direction: column-reverse;
+        padding: 80px 16px 40px;
+        gap: 24px;
+        align-items: center;
+        min-height: 100vh;
+        justify-content: flex-end;
+    }
+
+    .nw-hero__content {
+        max-width: 100%;
+        width: 100%;
+        text-align: center;
+        order: 2;
+    }
+
+    .nw-hero__tag {
+        justify-content: center;
+    }
+
+    .nw-hero__title-main {
+        font-size: clamp(2.8rem, 14vw, 4rem);
+    }
+
+    .nw-hero__actions {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .nw-btn {
+        font-size: 0.58rem;
+        padding: 10px 18px;
+    }
+
+    /* Visual — image takes prominent space */
     .nw-hero__visual {
-        width: 320px;
-        height: 440px;
+        width: min(300px, 80vw);
+        height: min(420px, 108vw);
+        order: 1;
+        flex-shrink: 0;
     }
 
     .nw-hero__data {
         display: none;
+    }
+
+    /* Circles scale with visual */
+    .nw-hero__circle-outer,
+    .nw-hero__circle-mid,
+    .nw-hero__circle-inner {
+        transform: scale(0.75);
     }
 
     .nw-profile__grid {
@@ -1287,7 +1376,7 @@
 
     .nw-origin__cover-img {
         width: 100%;
-        height: 300px;
+        height: 280px;
     }
 
     .nw-missions__thead,
@@ -1302,26 +1391,6 @@
         display: none;
     }
 
-    .nw-nav__links {
-        display: none;
-    }
-
-    .nw-nav__links.open {
-        display: flex;
-        flex-direction: column;
-        position: fixed;
-        top: 64px;
-        left: 0;
-        right: 0;
-        background: var(--nw-bg);
-        padding: 24px;
-        border-bottom: 1px solid var(--nw-dim);
-    }
-
-    .nw-nav__toggle {
-        display: flex;
-    }
-
     .nw-rogues__grid {
         grid-template-columns: 1fr 1fr;
     }
@@ -1332,9 +1401,21 @@
         grid-template-columns: 1fr;
     }
 
+    /* Image fills more of the phone width */
+    .nw-hero__visual {
+        width: min(260px, 76vw);
+        height: min(370px, 105vw);
+    }
+
     .nw-hero__img {
-        width: 200px;
-        height: 280px;
+        width: 100%;
+        height: 100%;
+        object-position: center top;
+    }
+
+    .nw-hero {
+        padding: 72px 16px 32px;
+        gap: 16px;
     }
 }
 

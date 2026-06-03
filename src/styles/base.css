@@ -28,6 +28,8 @@ body {
     font-family: 'Raleway', sans-serif;
     color: var(--bat-white);
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeSpeed;
 }
 
 /* ── SHARED TEXT ── */
@@ -83,6 +85,7 @@ body {
     background: radial-gradient(circle, rgba(245, 197, 24, .11) 0%, rgba(245, 197, 24, .05) 35%, transparent 70%);
     transition: opacity .4s ease;
     mix-blend-mode: screen;
+    will-change: left, top;
 }
 
 #bat-cursor-dot {
@@ -94,6 +97,7 @@ body {
     transform: translate(-50%, -50%);
     transition: transform .03s linear, opacity .25s ease;
     filter: drop-shadow(0 0 4px rgba(245, 197, 24, .9)) drop-shadow(0 0 12px rgba(245, 197, 24, .4));
+    will-change: left, top, transform;
 }
 
 #bat-cursor-ring {
@@ -106,6 +110,7 @@ body {
     border: 1px solid rgba(245, 197, 24, .5);
     transform: translate(-50%, -50%);
     transition: width .3s ease, height .3s ease, border-color .3s ease, opacity .25s ease;
+    will-change: left, top;
 }
 
 /* ── NAV ── */

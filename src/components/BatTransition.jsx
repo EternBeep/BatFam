@@ -8,8 +8,9 @@ export default function BatTransition({ onDone }) {
         const canvas = canvasRef.current;
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-        const ctx = canvas.getContext('2d');
+        const ctx = canvas.getContext('2d', { alpha: false });
         const W = canvas.width, H = canvas.height;
+        const isMobile = W < 768;
         const CX = W / 2, CY = H / 2;
 
         // ── Batarang image → gold transparent silhouette ───────────
@@ -68,7 +69,7 @@ export default function BatTransition({ onDone }) {
         regenerateGrain();
 
         // ── Rain ────────────────────────────────────────────────────
-        const rainDrops = Array.from({ length: 180 }, () => ({
+        const rainDrops = Array.from({ length: isMobile ? 80 : 180 }, () => ({
             x: Math.random() * W * 1.5 - W * 0.25,
             y: Math.random() * H - H,
             len: 12 + Math.random() * 40,
@@ -156,7 +157,7 @@ export default function BatTransition({ onDone }) {
         let beamAngle = -0.3;
 
         // ── Dust particles in beam ──────────────────────────────────
-        const dustParticles = Array.from({ length: 55 }, (_, i) => ({
+        const dustParticles = Array.from({ length: isMobile ? 20 : 55 }, (_, i) => ({
             t: Math.random(),
             offset: (Math.random() - 0.5) * 60,
             size: 0.6 + Math.random() * 1.8,
@@ -204,7 +205,7 @@ export default function BatTransition({ onDone }) {
             ctx.restore();
         }
 
-        const bats = Array.from({ length: 45 }, (_, i) => {
+        const bats = Array.from({ length: isMobile ? 18 : 45 }, (_, i) => {
             const side = Math.random() < 0.5 ? -1 : 1;
             return {
                 x: CX + side * (80 + Math.random() * 420),
@@ -519,7 +520,7 @@ export default function BatTransition({ onDone }) {
 
             // ── Film grain ───────────────────────────────────────────
             grainTick++;
-            if (grainTick % 2 === 0) regenerateGrain();
+            if (grainTick % (isMobile ? 4 : 2) === 0) regenerateGrain();
             ctx.save();
             ctx.globalAlpha = 0.32;
             ctx.globalCompositeOperation = 'screen';

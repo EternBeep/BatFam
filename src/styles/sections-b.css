@@ -7,6 +7,8 @@
     padding: 120px 40px;
     background: var(--bat-black);
     border-top: 1px solid rgba(245, 197, 24, .06);
+    content-visibility: auto;
+    contain-intrinsic-size: 0 900px;
 }
 
 .rogues-inner {
@@ -192,6 +194,8 @@
     padding: 120px 40px;
     background: var(--bat-dark);
     border-top: 1px solid rgba(245, 197, 24, .06);
+    content-visibility: auto;
+    contain-intrinsic-size: 0 700px;
 }
 
 .allies-inner {

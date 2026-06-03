@@ -60,6 +60,8 @@
     border-top: 1px solid rgba(245, 197, 24, .06);
     position: relative;
     overflow: hidden;
+    content-visibility: auto;
+    contain-intrinsic-size: 0 800px;
 }
 
 .batmobile-section::before {
@@ -315,6 +317,8 @@
     border-top: 1px solid rgba(245, 197, 24, .06);
     position: relative;
     overflow: hidden;
+    content-visibility: auto;
+    contain-intrinsic-size: 0 900px;
 }
 
 .gotham-inner {
@@ -481,6 +485,8 @@
     border-top: 1px solid rgba(245, 197, 24, .06);
     position: relative;
     overflow: hidden;
+    content-visibility: auto;
+    contain-intrinsic-size: 0 1200px;
 }
 
 .timeline-inner {

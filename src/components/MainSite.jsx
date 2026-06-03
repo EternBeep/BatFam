@@ -493,16 +493,22 @@ export default function MainSite({ onBack }) {
         // Nav hide on scroll
         const nav = document.querySelector('nav');
         let lastY = window.scrollY;
+        let navRaf = null;
         const onNavScroll = () => {
-            const y = window.scrollY;
-            if (y > lastY && y > 100) { nav.style.transform = 'translateY(-100%)'; nav.style.opacity = '0'; }
-            else { nav.style.transform = 'translateY(0)'; nav.style.opacity = '1'; }
-            lastY = y;
+            if (navRaf) return;
+            navRaf = requestAnimationFrame(() => {
+                navRaf = null;
+                const y = window.scrollY;
+                if (y > lastY && y > 100) { nav.style.transform = 'translateY(-100%)'; nav.style.opacity = '0'; }
+                else { nav.style.transform = 'translateY(0)'; nav.style.opacity = '1'; }
+                lastY = y;
+            });
         };
-        window.addEventListener('scroll', onNavScroll);
+        window.addEventListener('scroll', onNavScroll, { passive: true });
 
         return () => {
             if (rafId) cancelAnimationFrame(rafId);
+            if (navRaf) cancelAnimationFrame(navRaf);
             document.removeEventListener('mousemove', onMouseMove);
             document.removeEventListener('mouseleave', onDocLeave);
             document.removeEventListener('mouseenter', onDocEnter);
@@ -787,6 +793,7 @@ export default function MainSite({ onBack }) {
                             src="/batmobile-3d-viewer.html"
                             title="Batmobile 3D Viewer"
                             className="batmobile-iframe"
+                            loading="lazy"
                             allowFullScreen
                         />
                     </div>

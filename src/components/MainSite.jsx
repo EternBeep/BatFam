@@ -321,6 +321,7 @@ export default function MainSite({ onBack }) {
             dot.style.left = mouseX + 'px'; dot.style.top = mouseY + 'px';
             dot.style.transform = `translate(-50%,-50%) rotate(${lastAngle}deg)`;
             ring.style.left = mouseX + 'px'; ring.style.top = mouseY + 'px';
+            setCursorVisible(true);
         };
 
         const onDocLeave = (e) => { if (!e.relatedTarget) setCursorVisible(false); };
